@@ -1,0 +1,2198 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>CanLover Documentation</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">
+:root {
+--base: #1e1e2e;
+--mantle: #181825;
+--crust: #11111b;
+--surface0: #313244;
+--surface1: #45475a;
+--surface2: #585b70;
+--overlay1: #7f849c;
+--text: #cdd6f4;
+--subtext1: #bac2de;
+--subtext0: #a6adc8;
+--blue: #89b4fa;
+--lavender: #b4befe;
+--sapphire: #74c7ec;
+--teal: #94e2d5;
+--green: #a6e3a1;
+--yellow: #f9e2af;
+--peach: #fab387;
+--red: #f38ba8;
+--mauve: #cba6f7;
+--sidebar-width: 270px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+background: var(--base);
+color: var(--text);
+font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+line-height: 1.7;
+padding-left: var(--sidebar-width);
+}
+
+nav#TOC {
+position: fixed;
+top: 0; left: 0;
+width: var(--sidebar-width);
+height: 100vh;
+overflow-y: auto;
+background: var(--mantle);
+border-right: 1px solid var(--surface1);
+padding: 1.5rem 1rem 2rem;
+scrollbar-width: thin;
+scrollbar-color: var(--surface1) transparent;
+}
+nav#TOC::before {
+content: "Contents";
+display: block;
+color: var(--blue);
+font-size: 0.7rem;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 0.12em;
+padding-bottom: 0.6rem;
+margin-bottom: 0.6rem;
+border-bottom: 1px solid var(--surface1);
+}
+nav#TOC ul { list-style: none; padding-left: 0.75rem; }
+nav#TOC > ul { padding-left: 0; }
+nav#TOC li { margin: 0.15rem 0; }
+nav#TOC a {
+color: var(--subtext1);
+text-decoration: none;
+font-size: 0.82rem;
+display: block;
+padding: 0.22rem 0.5rem;
+border-radius: 4px;
+transition: color 0.12s, background 0.12s;
+}
+nav#TOC a:hover { color: var(--blue); background: var(--surface0); }
+
+body > *:not(nav#TOC) {
+max-width: 860px;
+padding: 2.5rem 3rem;
+}
+
+header#title-block-header {
+border-bottom: 2px solid var(--surface1);
+padding-bottom: 1.5rem;
+margin-bottom: 2rem;
+}
+header#title-block-header h1.title {
+font-size: 2.4rem;
+color: var(--blue);
+border: none;
+margin: 0;
+}
+
+h1 {
+color: var(--blue);
+font-size: 1.9rem;
+margin: 2.5rem 0 1rem;
+padding-bottom: 0.4rem;
+border-bottom: 2px solid var(--surface1);
+}
+h2 {
+color: var(--lavender);
+font-size: 1.35rem;
+margin: 1.8rem 0 0.6rem;
+}
+h3 {
+color: var(--sapphire);
+font-size: 1.1rem;
+margin: 1.4rem 0 0.4rem;
+}
+h4 {
+color: var(--teal);
+font-size: 1rem;
+margin: 1rem 0 0.3rem;
+}
+
+p { margin: 0.75rem 0; }
+ul, ol { margin: 0.75rem 0; padding-left: 1.6rem; }
+li { margin: 0.3rem 0; }
+strong { color: var(--peach); font-weight: 600; }
+em { color: var(--mauve); }
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+hr {
+border: none;
+border-top: 1px solid var(--surface1);
+margin: 2rem 0;
+}
+
+code {
+background: var(--surface0);
+color: var(--green);
+padding: 0.12em 0.4em;
+border-radius: 4px;
+font-size: 0.88em;
+font-family: 'Consolas', 'Cascadia Code', monospace;
+}
+pre {
+background: var(--mantle);
+border: 1px solid var(--surface1);
+border-radius: 6px;
+padding: 1rem 1.2rem;
+overflow-x: auto;
+margin: 1rem 0;
+}
+pre code { background: none; padding: 0; color: var(--text); font-size: 0.88rem; }
+
+table {
+border-collapse: collapse;
+width: 100%;
+margin: 1rem 0;
+font-size: 0.9rem;
+}
+th {
+background: var(--surface0);
+color: var(--blue);
+padding: 0.55rem 0.9rem;
+text-align: left;
+border-bottom: 2px solid var(--surface1);
+font-weight: 600;
+}
+td {
+padding: 0.5rem 0.9rem;
+border-bottom: 1px solid var(--surface0);
+}
+tr:hover td { background: var(--surface0); }
+
+blockquote {
+border-left: 3px solid var(--blue);
+margin: 1rem 0;
+padding: 0.6rem 1rem;
+background: var(--mantle);
+color: var(--subtext1);
+border-radius: 0 4px 4px 0;
+}
+blockquote p { margin: 0.3rem 0; }
+
+.back-btn {
+display: inline-flex;
+align-items: center;
+gap: 0.4rem;
+position: fixed;
+bottom: 1.25rem;
+left: calc(var(--sidebar-width) / 2 - 70px);
+background: var(--surface0);
+color: var(--subtext1);
+font-size: 0.78rem;
+font-weight: 500;
+padding: 0.45rem 0.85rem;
+border-radius: 6px;
+border: 1px solid var(--surface1);
+text-decoration: none;
+transition: color 0.12s, background 0.12s, border-color 0.12s;
+z-index: 100;
+}
+.back-btn:hover {
+color: var(--blue);
+background: var(--mantle);
+border-color: var(--blue);
+text-decoration: none;
+}
+
+@media (max-width: 768px) {
+:root { --sidebar-width: 0px; }
+nav#TOC { display: none; }
+body > *:not(nav#TOC) { padding: 1.5rem 1.2rem; }
+.back-btn { display: none; }
+}
+</style>
+</head>
+<body>
+<a href="index.html" class="back-btn">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="15 18 9 12 15 6"></polyline>
+  </svg>
+  Back to website
+</a>
+<header id="title-block-header">
+<h1 class="title">CanLover Documentation</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#introduction" id="toc-introduction">Introduction</a>
+<ul>
+<li><a href="#main-features" id="toc-main-features">Main
+Features</a></li>
+<li><a href="#supported-platforms" id="toc-supported-platforms">Supported Platforms</a></li>
+<li><a href="#application-layout" id="toc-application-layout">Application Layout</a></li>
+<li><a href="#licensing" id="toc-licensing">Licensing</a></li>
+</ul></li>
+<li><a href="#bus-configuration" id="toc-bus-configuration">Bus
+Configuration</a>
+<ul>
+<li><a href="#discovering-devices" id="toc-discovering-devices">Discovering Devices</a></li>
+<li><a href="#configuring-channels" id="toc-configuring-channels">Configuring Channels</a></li>
+<li><a href="#attaching-database-files" id="toc-attaching-database-files">Attaching Database Files</a></li>
+<li><a href="#connecting" id="toc-connecting">Connecting</a></li>
+<li><a href="#replay-sessions" id="toc-replay-sessions">Replay
+Sessions</a></li>
+<li><a href="#saving-a-recording" id="toc-saving-a-recording">Saving a
+Recording</a></li>
+</ul></li>
+<li><a href="#raw-trace" id="toc-raw-trace">Raw Trace</a>
+<ul>
+<li><a href="#trace-mode" id="toc-trace-mode">Trace Mode</a></li>
+<li><a href="#unique-mode" id="toc-unique-mode">Unique Mode</a></li>
+</ul></li>
+<li><a href="#signal-table" id="toc-signal-table">Signal Table</a>
+<ul>
+<li><a href="#layout" id="toc-layout">Layout</a></li>
+<li><a href="#controls-1" id="toc-controls-1">Controls</a></li>
+<li><a href="#highlights" id="toc-highlights">Highlights</a></li>
+<li><a href="#usage-tips" id="toc-usage-tips">Usage Tips</a></li>
+</ul></li>
+<li><a href="#signal-plot" id="toc-signal-plot">Signal Plot</a>
+<ul>
+<li><a href="#signal-browser" id="toc-signal-browser">Signal
+Browser</a></li>
+<li><a href="#adding-signals-to-a-plot" id="toc-adding-signals-to-a-plot">Adding Signals to a Plot</a></li>
+<li><a href="#layout-1" id="toc-layout-1">Layout</a></li>
+<li><a href="#stacked-vs.-shared-axis-mode" id="toc-stacked-vs.-shared-axis-mode">Stacked vs. Shared Axis
+Mode</a></li>
+<li><a href="#zoom-and-navigation" id="toc-zoom-and-navigation">Zoom and
+Navigation</a></li>
+<li><a href="#markers" id="toc-markers">Markers</a></li>
+<li><a href="#controls-2" id="toc-controls-2">Controls</a></li>
+</ul></li>
+<li><a href="#dtc-panel" id="toc-dtc-panel">DTC Panel</a>
+<ul>
+<li><a href="#layout-2" id="toc-layout-2">Layout</a></li>
+<li><a href="#deduplication" id="toc-deduplication">Deduplication</a></li>
+<li><a href="#usage-tips-1" id="toc-usage-tips-1">Usage Tips</a></li>
+</ul></li>
+<li><a href="#freeze-frame" id="toc-freeze-frame">Freeze Frame</a>
+<ul>
+<li><a href="#layout-3" id="toc-layout-3">Layout</a></li>
+<li><a href="#controls-3" id="toc-controls-3">Controls</a></li>
+<li><a href="#usage-tips-2" id="toc-usage-tips-2">Usage Tips</a></li>
+</ul></li>
+<li><a href="#j1939-network" id="toc-j1939-network">J1939 Network</a>
+<ul>
+<li><a href="#layout-4" id="toc-layout-4">Layout</a></li>
+<li><a href="#behaviour" id="toc-behaviour">Behaviour</a></li>
+<li><a href="#usage-tips-3" id="toc-usage-tips-3">Usage Tips</a></li>
+</ul></li>
+<li><a href="#database-browser" id="toc-database-browser">Database
+Browser</a>
+<ul>
+<li><a href="#opening-a-database" id="toc-opening-a-database">Opening a
+Database</a></li>
+<li><a href="#left-panel-channel-and-message-list" id="toc-left-panel-channel-and-message-list">Left Panel — Channel and
+Message List</a></li>
+<li><a href="#right-panel-message-detail" id="toc-right-panel-message-detail">Right Panel — Message
+Detail</a></li>
+</ul></li>
+<li><a href="#can-transmit" id="toc-can-transmit">CAN Transmit</a>
+<ul>
+<li><a href="#adding-frames" id="toc-adding-frames">Adding
+Frames</a></li>
+<li><a href="#sending-frames" id="toc-sending-frames">Sending
+Frames</a></li>
+<li><a href="#dbc-message-entries" id="toc-dbc-message-entries">DBC
+Message Entries</a></li>
+<li><a href="#raw-frame-entries" id="toc-raw-frame-entries">Raw Frame
+Entries</a></li>
+</ul></li>
+<li><a href="#can-statistics" id="toc-can-statistics">CAN Statistics</a>
+<ul>
+<li><a href="#layout-5" id="toc-layout-5">Layout</a></li>
+<li><a href="#bus-status" id="toc-bus-status">Bus Status</a></li>
+<li><a href="#bus-load" id="toc-bus-load">Bus Load</a></li>
+<li><a href="#traffic" id="toc-traffic">Traffic</a></li>
+<li><a href="#error-frames" id="toc-error-frames">Error Frames</a></li>
+</ul></li>
+<li><a href="#licensing-1" id="toc-licensing-1">Licensing</a>
+<ul>
+<li><a href="#license-file" id="toc-license-file">License File</a></li>
+<li><a href="#license-properties" id="toc-license-properties">License
+Properties</a></li>
+<li><a href="#licensed-features" id="toc-licensed-features">Licensed
+Features</a></li>
+<li><a href="#obtaining-a-license" id="toc-obtaining-a-license">Obtaining a License</a></li>
+<li><a href="#license-validation" id="toc-license-validation">License
+Validation</a></li>
+</ul></li>
+<li><a href="#workspaces" id="toc-workspaces">Workspaces</a>
+<ul>
+<li><a href="#the-workspace-tab-bar" id="toc-the-workspace-tab-bar">The
+Workspace Tab Bar</a></li>
+<li><a href="#saving-and-loading" id="toc-saving-and-loading">Saving and
+Loading</a></li>
+<li><a href="#what-is-saved" id="toc-what-is-saved">What Is
+Saved</a></li>
+<li><a href="#configuration-directory" id="toc-configuration-directory">Configuration Directory</a></li>
+</ul></li>
+<li><a href="#node-logic" id="toc-node-logic">Node Logic</a>
+<ul>
+<li><a href="#opening-the-editor" id="toc-opening-the-editor">Opening
+the Editor</a></li>
+<li><a href="#toolbar" id="toc-toolbar">Toolbar</a></li>
+<li><a href="#concepts" id="toc-concepts">Concepts</a></li>
+<li><a href="#building-a-graph" id="toc-building-a-graph">Building a
+Graph</a></li>
+<li><a href="#pin-types-and-connections" id="toc-pin-types-and-connections">Pin Types and Connections</a></li>
+<li><a href="#validation" id="toc-validation">Validation</a></li>
+<li><a href="#execution-model" id="toc-execution-model">Execution
+Model</a></li>
+<li><a href="#saving-and-loading-1" id="toc-saving-and-loading-1">Saving
+and Loading</a></li>
+<li><a href="#usage-tips-4" id="toc-usage-tips-4">Usage Tips</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="introduction">Introduction</h1>
+<p>CanLover is a desktop application for analysing, decoding, and
+interacting with CAN bus networks. It supports live connections to
+physical hardware adapters as well as offline replay of recorded log
+files, and it provides a set of specialised windows for inspecting raw
+traffic, decoded signals, diagnostic trouble codes, network topology,
+and bus health.</p>
+<h2 id="main-features">Main Features</h2>
+<ul>
+<li><strong>Multi-channel live capture</strong> from PEAK, Vector, and
+Kvaser hardware adapters</li>
+<li><strong>Signal decoding</strong> via DBC and SYM database files</li>
+<li><strong>J1939 support</strong> — PGN/SPN decoding, address claims,
+DM1/DM2 DTCs, and DM25 freeze frames</li>
+<li><strong>Replay</strong> of ASC, TRC, and BLF log files with timeline
+scrubbing and variable speed</li>
+<li><strong>Signal plotting</strong> with configurable multi-panel
+layouts and drag-and-drop assignment</li>
+<li><strong>Node Logic</strong> — visual scripting engine: wire event,
+logic, data, and action nodes to automate CAN behaviour without writing
+code</li>
+<li><strong>CAN transmit</strong> with periodic scheduling and animated
+signal waveforms (ramp, sine)</li>
+<li><strong>Bus statistics</strong> — real-time load, error counters,
+and traffic breakdown per channel</li>
+<li><strong>Database browser</strong> — visual bit-layout inspector for
+DBC and SYM files</li>
+<li><strong>Session recording</strong> exportable to ASC, TRC, or
+BLF</li>
+</ul>
+<h2 id="supported-platforms">Supported Platforms</h2>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows 10 / 11 (x64)</td>
+<td>Fully supported</td>
+</tr>
+<tr>
+<td>Linux (x86-64)</td>
+<td>Fully supported</td>
+</tr>
+<tr>
+<td>macOS</td>
+<td>Experimental</td>
+</tr>
+</tbody>
+</table>
+<h2 id="application-layout">Application Layout</h2>
+<p>CanLover uses a dockable window layout. All windows can be freely
+repositioned, resized, tabbed, and undocked. The layout is preserved
+between sessions.</p>
+<p>A session starts with the <strong>Bus Configuration</strong> window,
+where you select hardware channels, attach database files, and connect.
+Once connected (or a replay is loaded), the remaining windows populate
+with live data.</p>
+<h2 id="licensing">Licensing</h2>
+<p>Some features require a valid license file. CanLover will load a
+license from the application data directory automatically on startup.
+See the <a href="#licensing">Licensing</a> section for details on which
+features require a license.</p>
+<h1 id="bus-configuration">Bus Configuration</h1>
+<p>The Bus Configuration window is the starting point for every session.
+Open it with the <strong>Configure…</strong> button in the main toolbar.
+It covers device discovery, channel setup, database attachment, and
+session management.</p>
+<h2 id="discovering-devices">Discovering Devices</h2>
+<p>Click <strong>Refresh Devices</strong> to enumerate all connected CAN
+adapters. Detected hardware is displayed in a collapsible list grouped
+by device, showing the device type, serial number, and the number of
+available channels.</p>
+<blockquote>
+<p>If a device does not appear, verify that the vendor driver is
+installed and the adapter is powered on before clicking Refresh.</p>
+</blockquote>
+<h2 id="configuring-channels">Configuring Channels</h2>
+<p>Expand a device entry to reveal its individual channels. For each
+channel:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Control</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enable checkbox</td>
+<td>Include this channel in the session</td>
+</tr>
+<tr>
+<td>Bitrate</td>
+<td>Select from 10k, 20k, 50k, 125k, 250k, 500k, 800k, or 1 Mbps</td>
+</tr>
+<tr>
+<td>Auto-scan</td>
+<td>Detect the bitrate automatically by listening for valid traffic</td>
+</tr>
+</tbody>
+</table>
+<p>Only channels with the enable checkbox ticked will be opened when you
+connect.</p>
+<h2 id="attaching-database-files">Attaching Database Files</h2>
+<p>Each channel can have one or more database files attached for signal
+decoding:</p>
+<ul>
+<li><strong>+DBC</strong> — attach a DBC file (CAN database with message
+and signal definitions)</li>
+<li><strong>+SYM</strong> — attach a SYM file (Peak Symbol Editor
+format)</li>
+</ul>
+<p>A file browser opens to select the file. Multiple files can be
+attached to the same channel; signals from all files will be decoded
+concurrently.</p>
+<h3 id="j1939-options">J1939 Options</h3>
+<p>When a DBC or SYM file containing J1939 messages is loaded, an
+additional J1939 section appears with options for BAM assembly, SPN
+decoding, and CSV-based SPN description lookup.</p>
+<h2 id="connecting">Connecting</h2>
+<p>Once channels are configured and databases are attached, click
+<strong>Connect Active Channels</strong>. CanLover opens all enabled
+channels at the selected bitrates and begins capturing traffic.</p>
+<p>A recording starts automatically when you connect. The status bar
+shows elapsed recording time.</p>
+<h2 id="replay-sessions">Replay Sessions</h2>
+<p>To replay a previously recorded file instead of connecting to
+hardware:</p>
+<ol type="1">
+<li>Click <strong>+ Add Replay File</strong> and select an ASC, TRC, or
+BLF file.</li>
+<li>Attach decoder files (+DBC/+SYM) to any replay channel as
+needed.</li>
+<li>Use the playback controls at the bottom of the window:</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Play / Pause</td>
+<td>Start or pause the replay</td>
+</tr>
+<tr>
+<td>Timeline slider</td>
+<td>Scrub to any position in the recording</td>
+</tr>
+<tr>
+<td>Speed</td>
+<td>Replay speed from 0.1× to 16×</td>
+</tr>
+<tr>
+<td>Loop</td>
+<td>Restart automatically at the end</td>
+</tr>
+</tbody>
+</table>
+<p>Multiple files can be added and will be played in sequence as a
+single concatenated recording.</p>
+<h2 id="saving-a-recording">Saving a Recording</h2>
+<p>Before disconnecting or connecting to a different device, CanLover
+offers to save the current session recording. The save dialog supports
+three formats:</p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASC</td>
+<td>Peak/CANalyzer text format</td>
+</tr>
+<tr>
+<td>TRC</td>
+<td>Peak binary trace format</td>
+</tr>
+<tr>
+<td>BLF</td>
+<td>Vector Binary Logging Format</td>
+</tr>
+</tbody>
+</table>
+<p>Choose a format, set the output path, and click
+<strong>Save</strong>. Selecting <strong>Discard</strong> discards the
+in-memory recording without saving.</p>
+<h1 id="raw-trace">Raw Trace</h1>
+<p>The Raw Trace window shows every CAN frame that passes through the
+session, in real time. It has two complementary view modes selectable
+via tabs at the top.</p>
+<h2 id="trace-mode">Trace Mode</h2>
+<p>Trace mode is a chronological log of all frames in the order they
+were received or transmitted, up to an internal buffer of approximately
+16 000 entries.</p>
+<h3 id="columns">Columns</h3>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Time</td>
+<td>Timestamp in seconds from session start</td>
+</tr>
+<tr>
+<td>Dir</td>
+<td>Direction — <strong>Rx</strong> (received) or <strong>Tx</strong>
+(transmitted)</td>
+</tr>
+<tr>
+<td>Channel</td>
+<td>Hardware channel index</td>
+</tr>
+<tr>
+<td>ID</td>
+<td>CAN identifier in hexadecimal or decimal</td>
+</tr>
+<tr>
+<td>DLC</td>
+<td>Data Length Code (number of data bytes)</td>
+</tr>
+<tr>
+<td>Data</td>
+<td>Raw data bytes in hexadecimal</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>Decoded message name if a database is loaded, otherwise blank</td>
+</tr>
+</tbody>
+</table>
+<p>TX frames are highlighted with a subtle blue background to
+distinguish them from received traffic.</p>
+<h3 id="sorting">Sorting</h3>
+<p>Click any column header to sort the visible rows by that column.
+Clicking the same header again reverses the order; a third click removes
+the sort and restores insertion order. The <strong>Data</strong> column
+cannot be sorted.</p>
+<h3 id="controls">Controls</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Control</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pause</strong></td>
+<td>Freeze the display without stopping capture</td>
+</tr>
+<tr>
+<td><strong>Clear</strong></td>
+<td>Discard all buffered frames</td>
+</tr>
+<tr>
+<td><strong>Hex / Dec</strong></td>
+<td>Toggle CAN ID display between hexadecimal and decimal</td>
+</tr>
+<tr>
+<td><strong>Filter</strong></td>
+<td>Text box — filter rows by message type name or CAN ID</td>
+</tr>
+<tr>
+<td><strong>Auto-scroll</strong></td>
+<td>Keep the view scrolled to the most recent frame</td>
+</tr>
+</tbody>
+</table>
+<p>Hovering over a frame row shows a tooltip with the decoded signal
+values for that frame, if a database is loaded.</p>
+<h2 id="unique-mode">Unique Mode</h2>
+<p>Unique mode consolidates the stream into one row per CAN ID, showing
+only the most recent data for each message. This gives an at-a-glance
+view of all active messages on the bus.</p>
+<h3 id="columns-1">Columns</h3>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Time</td>
+<td>Timestamp of the most recently received frame</td>
+</tr>
+<tr>
+<td>Dir</td>
+<td>Last observed direction</td>
+</tr>
+<tr>
+<td>Ch</td>
+<td>Channel</td>
+</tr>
+<tr>
+<td>ID</td>
+<td>CAN identifier</td>
+</tr>
+<tr>
+<td>DLC</td>
+<td>Data length</td>
+</tr>
+<tr>
+<td>Data</td>
+<td>Most recent data bytes</td>
+</tr>
+<tr>
+<td>Count</td>
+<td>Total number of frames received for this ID</td>
+</tr>
+<tr>
+<td>Cycle</td>
+<td>Last observed cycle time in milliseconds</td>
+</tr>
+<tr>
+<td>Min / Max</td>
+<td>Minimum and maximum observed cycle times</td>
+</tr>
+</tbody>
+</table>
+<p>Rows whose data changed within the last 500 ms are highlighted in
+amber, making it easy to spot active messages.</p>
+<h3 id="sorting-1">Sorting</h3>
+<p>Click any column header to sort by that column (ascending →
+descending → none). The <strong>Data / Value</strong> and
+<strong>Unit</strong> columns cannot be sorted.</p>
+<h3 id="signal-expansion">Signal Expansion</h3>
+<p>If a database is loaded, each row in Unique mode can be expanded
+(click the arrow) to reveal the decoded signals for that message.
+Multiplexed messages show a sub-level for each active multiplexer
+value.</p>
+<h1 id="signal-table">Signal Table</h1>
+<p>The Signal Table window provides a real-time tabular view of every
+decoded signal value across all loaded databases. It requires at least
+one DBC or SYM file to be attached to an active channel.</p>
+<blockquote>
+<p><strong>License required:</strong> DBC/SYM signal decoding requires
+the <em>DBC Decoder</em> feature in the license.</p>
+</blockquote>
+<h2 id="layout">Layout</h2>
+<p>Each row represents a single signal. Signals are grouped by their
+parent message name.</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Message</td>
+<td>Name of the CAN message that contains this signal</td>
+</tr>
+<tr>
+<td>Signal</td>
+<td>Signal name as defined in the database</td>
+</tr>
+<tr>
+<td>Value</td>
+<td>Current physical value (scaled and offset-applied)</td>
+</tr>
+<tr>
+<td>Unit</td>
+<td>Engineering unit from the database (e.g. <code>km/h</code>,
+<code>°C</code>, <code>bar</code>)</td>
+</tr>
+<tr>
+<td>Source</td>
+<td>Origin of the decoding rule — <code>DBC</code>, <code>SYM</code>, or
+<code>J1939</code></td>
+</tr>
+</tbody>
+</table>
+<p>The total number of decoded signals is shown in the top-right corner
+of the window.</p>
+<h2 id="controls-1">Controls</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Control</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Filter</strong></td>
+<td>Type any text to filter rows by message or signal name</td>
+</tr>
+<tr>
+<td><strong>Freeze</strong></td>
+<td>Pause value updates while keeping the current values visible</td>
+</tr>
+<tr>
+<td><strong>Clear</strong></td>
+<td>Remove all rows; they repopulate as new frames arrive</td>
+</tr>
+</tbody>
+</table>
+<h2 id="highlights">Highlights</h2>
+<p>Rows whose value changed within the last 500 ms are highlighted in
+green. This makes it easy to see which signals are currently active and
+changing, especially on a busy bus.</p>
+<h2 id="usage-tips">Usage Tips</h2>
+<ul>
+<li>Use the filter box with a message name to focus on the signals of a
+specific ECU.</li>
+<li>Combine with the <strong>Signal Plot</strong> window to quickly
+identify which signals are worth plotting: find the signal of interest
+here, then drag it from the plot window’s signal browser onto a canvas
+cell.</li>
+<li>In replay mode, the table reflects the signal values at the current
+playback position. Scrubbing the timeline updates all rows
+accordingly.</li>
+</ul>
+<h1 id="signal-plot">Signal Plot</h1>
+<p>The Signal Plot window visualises signal values as time-series
+charts. Signals can be freely assigned to a configurable grid of plot
+panels.</p>
+<blockquote>
+<p><strong>License required:</strong> Signal plotting requires the
+<em>Signal Plot</em> feature in the license.</p>
+</blockquote>
+<h2 id="signal-browser">Signal Browser</h2>
+<p>The left sidebar contains a hierarchical browser listing all decoded
+signals, organised by message name. Use the filter box at the top of the
+sidebar to search by message or signal name.</p>
+<h2 id="adding-signals-to-a-plot">Adding Signals to a Plot</h2>
+<p>Drag a signal from the sidebar and drop it onto any panel in the plot
+canvas. Each panel accepts multiple signals and assigns a distinct
+colour automatically (up to eight colours before cycling).</p>
+<p>To remove a signal, right-click anywhere on the panel and select
+<strong>Remove signal</strong> from the context menu.</p>
+<h2 id="layout-1">Layout</h2>
+<p>The toolbar above the canvas contains a layout picker that sets the
+grid arrangement of panels:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Grid</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1×1</td>
+<td>Single panel (default)</td>
+</tr>
+<tr>
+<td>1×2</td>
+<td>Two panels side by side</td>
+</tr>
+<tr>
+<td>2×1</td>
+<td>Two panels stacked vertically</td>
+</tr>
+<tr>
+<td>2×2</td>
+<td>Four panels in a 2×2 grid</td>
+</tr>
+<tr>
+<td>3×1, 1×3, 3×2, 2×3</td>
+<td>Larger grids</td>
+</tr>
+</tbody>
+</table>
+<p>Changing the layout preserves existing signal assignments where
+possible.</p>
+<h2 id="stacked-vs.-shared-axis-mode">Stacked vs. Shared Axis Mode</h2>
+<p>Each panel supports two display modes, toggled from the right-click
+context menu:</p>
+<ul>
+<li><strong>Shared axis</strong> — all signals in the panel share a
+single Y axis and are overlaid on one chart. Useful when signals have
+similar ranges.</li>
+<li><strong>Stacked</strong> — each signal gets its own sub-plot with an
+independent Y axis. The X axes are linked so panning one pans all.
+Useful for comparing signals with very different scales.</li>
+</ul>
+<h2 id="zoom-and-navigation">Zoom and Navigation</h2>
+<p>The plot canvas is interactive:</p>
+<ul>
+<li><strong>Scroll</strong> to zoom the X axis (time axis)</li>
+<li><strong>Middle-click drag</strong> to pan</li>
+<li><strong>Double-click</strong> to reset zoom to the full history
+window</li>
+</ul>
+<p>In live mode the X axis spans a rolling history window. In replay
+mode it spans the full recording length, and a cursor marker shows the
+current playback position on every signal.</p>
+<h2 id="markers">Markers</h2>
+<p>The toolbar contains a <strong>marker threshold</strong> setting
+(default 50). When the number of visible samples falls below this
+threshold (i.e., you are sufficiently zoomed in), individual sample
+markers appear on the plot lines to show the exact measurement
+points.</p>
+<h2 id="controls-2">Controls</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Control</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Clear</strong></td>
+<td>Remove all signals from all panels</td>
+</tr>
+<tr>
+<td><strong>Layout picker</strong></td>
+<td>Change the panel grid arrangement</td>
+</tr>
+<tr>
+<td><strong>Marker threshold</strong></td>
+<td>Set the sample count below which markers are shown</td>
+</tr>
+</tbody>
+</table>
+<h1 id="dtc-panel">DTC Panel</h1>
+<p>The DTC Panel displays active Diagnostic Trouble Codes (DTCs)
+reported by J1939 nodes on the network. It processes DM1 (active faults)
+and DM2 (previously active faults) messages as they arrive.</p>
+<blockquote>
+<p><strong>License required:</strong> The DTC Panel requires the <em>DTC
+Panel</em> feature in the license. <strong>Protocol
+requirement:</strong> A J1939 database must be loaded for SPN and FMI
+descriptions to appear.</p>
+</blockquote>
+<h2 id="layout-2">Layout</h2>
+<p>The header shows the total count of active DTCs. The
+<strong>Clear</strong> button removes all entries from the list.</p>
+<p>Each row in the table represents one DTC:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Time</td>
+<td>Session timestamp (seconds) when the DTC was first observed</td>
+</tr>
+<tr>
+<td>Source</td>
+<td>J1939 source address of the node reporting the fault
+(hexadecimal)</td>
+</tr>
+<tr>
+<td>SPN</td>
+<td>Suspect Parameter Number — identifies the system or component</td>
+</tr>
+<tr>
+<td>FMI</td>
+<td>Failure Mode Identifier — describes the type of fault</td>
+</tr>
+<tr>
+<td>OC</td>
+<td>Occurrence count reported by the node</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>Human-readable text combining the SPN name and FMI meaning</td>
+</tr>
+</tbody>
+</table>
+<h2 id="deduplication">Deduplication</h2>
+<p>If the same SPN + FMI combination from the same source address is
+received more than once, the existing row is updated rather than
+creating a duplicate. The occurrence count reflects the latest value
+from the node.</p>
+<h2 id="usage-tips-1">Usage Tips</h2>
+<ul>
+<li>The <strong>Source</strong> column shows the raw J1939 address in
+hex. Cross-reference with the <strong>J1939 Network</strong> window to
+identify the reporting node by manufacturer and function code.</li>
+<li>Sort by <strong>Time</strong> to see the chronological order in
+which faults appeared.</li>
+<li>Sort by <strong>Source</strong> to group all faults from the same
+ECU together.</li>
+</ul>
+<h1 id="freeze-frame">Freeze Frame</h1>
+<p>The Freeze Frame window captures and displays J1939 DM25 (Expanded
+Freeze Frame) data — a snapshot of signal values recorded by an ECU at
+the moment a fault was triggered.</p>
+<blockquote>
+<p><strong>License required:</strong> Freeze Frame requires the
+<em>Freeze Frame</em> feature in the license. <strong>Protocol
+requirement:</strong> Requires J1939 and a loaded database with DM25
+support.</p>
+</blockquote>
+<h2 id="layout-3">Layout</h2>
+<p>The window is split into two panels.</p>
+<h3 id="left-panel-snapshot-list">Left Panel — Snapshot List</h3>
+<p>Lists all freeze frame snapshots received during the session. Each
+entry shows:</p>
+<ul>
+<li><strong>Timestamp</strong> — session time when the snapshot was
+received</li>
+<li><strong>Source</strong> — J1939 source address of the reporting node
+(hex)</li>
+<li><strong>Trigger SPN</strong> — the Suspect Parameter Number that
+caused the fault</li>
+</ul>
+<p>Click a snapshot to select it and view its contents in the right
+panel.</p>
+<h3 id="right-panel-snapshot-detail">Right Panel — Snapshot Detail</h3>
+<p>Displays the contents of the selected snapshot:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source address</td>
+<td>J1939 address of the node that reported the freeze frame</td>
+</tr>
+<tr>
+<td>Trigger SPN</td>
+<td>SPN that was active when the snapshot was taken</td>
+</tr>
+<tr>
+<td>Trigger FMI</td>
+<td>Failure Mode Identifier associated with the trigger SPN</td>
+</tr>
+</tbody>
+</table>
+<p>Below the header, a table lists all captured signals with their
+physical values at the time of the fault. These values are immutable —
+they represent the state of the system at the moment the fault was
+detected, not the current live values.</p>
+<h2 id="controls-3">Controls</h2>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Clear</strong></td>
+<td>Remove all snapshots from the list</td>
+</tr>
+</tbody>
+</table>
+<h2 id="usage-tips-2">Usage Tips</h2>
+<ul>
+<li>Use freeze frames in conjunction with the <strong>DTC Panel</strong>
+to correlate a fault code with the operating conditions present when the
+fault occurred.</li>
+<li>Multiple snapshots from different ECUs or different fault events
+accumulate over the session, allowing comparison between events.</li>
+</ul>
+<h1 id="j1939-network">J1939 Network</h1>
+<p>The J1939 Network window shows the nodes discovered on the J1939
+network by listening for Address Claim (PGN 0xEE00) messages. It
+provides a quick topology overview of which ECUs are present on the
+bus.</p>
+<blockquote>
+<p><strong>Protocol requirement:</strong> Requires a J1939-enabled
+channel. Nodes only appear after they have transmitted an Address Claim
+message.</p>
+</blockquote>
+<h2 id="layout-4">Layout</h2>
+<p>The header shows the total count of discovered nodes.</p>
+<p>Each row in the table represents one network node:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Address</td>
+<td>J1939 source address of the node (hexadecimal, 0x00–0xFE)</td>
+</tr>
+<tr>
+<td>Manufacturer</td>
+<td>11-bit manufacturer code from the NAME field (shown as 4-digit
+hex)</td>
+</tr>
+<tr>
+<td>Function</td>
+<td>8-bit function code from the NAME field (shown as 2-digit hex)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="behaviour">Behaviour</h2>
+<ul>
+<li>Nodes are added the first time an Address Claim is received from a
+new source address.</li>
+<li>If the same source address transmits a new Address Claim (e.g.,
+after an address conflict resolution), the existing row is updated with
+the new NAME information.</li>
+<li>Nodes accumulate over the session; there is no automatic
+expiry.</li>
+</ul>
+<h2 id="usage-tips-3">Usage Tips</h2>
+<ul>
+<li>Use this window to confirm all expected ECUs are present and have
+successfully claimed their addresses before starting a diagnostic
+session.</li>
+<li>Cross-reference the <strong>Source</strong> column in the
+<strong>DTC Panel</strong> with the addresses shown here to identify
+which physical node is reporting a fault.</li>
+<li>The J1939 standard assigns well-known function codes (e.g., 0x00 =
+Engine, 0x04 = Transmission). Consult the J1939-81 specification or your
+system documentation for the full list.</li>
+</ul>
+<h1 id="database-browser">Database Browser</h1>
+<p>The Database Browser lets you inspect the contents of loaded DBC and
+SYM database files — message definitions, signal properties, and visual
+bit layouts — without needing an active CAN session.</p>
+<blockquote>
+<p><strong>License required:</strong> The Database Browser requires the
+<em>Database Browser</em> feature in the license.</p>
+</blockquote>
+<h2 id="opening-a-database">Opening a Database</h2>
+<p>If a database is already attached to an active channel via the Bus
+Configuration window, it is automatically shown in the browser. To
+browse a file independently of any session, click the
+<strong>Load</strong> button and select a DBC or SYM file.</p>
+<blockquote>
+<p>If a session database is configured after an ad-hoc file is loaded,
+the session database takes priority and the ad-hoc file is
+dismissed.</p>
+</blockquote>
+<h2 id="left-panel-channel-and-message-list">Left Panel — Channel and
+Message List</h2>
+<p>The left panel shows a tree of channels, each with the count of
+messages defined in its database. Expand a channel to see its messages
+listed by CAN ID and name. Click a message to select it and view its
+details in the right panel.</p>
+<p>The divider between the left and right panels can be dragged left or
+right to resize them. This is useful when message names are long and
+would otherwise be truncated.</p>
+<h2 id="right-panel-message-detail">Right Panel — Message Detail</h2>
+<p>The right panel has four tabs for the selected message.</p>
+<h3 id="signals-tab">Signals Tab</h3>
+<p>A table of all signals defined in the message:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>Signal name</td>
+</tr>
+<tr>
+<td>Start Bit</td>
+<td>Bit position of the LSB (Intel) or MSB (Motorola)</td>
+</tr>
+<tr>
+<td>Length</td>
+<td>Signal length in bits</td>
+</tr>
+<tr>
+<td>Byte Order</td>
+<td><strong>Intel</strong> (little-endian) or <strong>Motorola</strong>
+(big-endian)</td>
+</tr>
+<tr>
+<td>Factor</td>
+<td>Scale factor applied to the raw value</td>
+</tr>
+<tr>
+<td>Offset</td>
+<td>Offset added after scaling</td>
+</tr>
+<tr>
+<td>Unit</td>
+<td>Engineering unit</td>
+</tr>
+<tr>
+<td>Mux</td>
+<td>Multiplexer role — <strong>Mux ID</strong> (selector signal) or the
+mux value this signal belongs to</td>
+</tr>
+</tbody>
+</table>
+<p>Hovering over a row shows a tooltip with any value descriptions
+(named enumeration values) defined for that signal in the database.</p>
+<h3 id="bit-layout-tab">Bit Layout Tab</h3>
+<p>A colour-coded grid showing the physical bit positions occupied by
+each signal within the 8-byte CAN data field.</p>
+<ul>
+<li>Rows represent bytes (byte 0 at the top).</li>
+<li>Columns represent bits within each byte (bit 7 on the left, bit 0 on
+the right).</li>
+<li>Each signal is rendered in a distinct colour. A colour legend below
+the grid identifies which signal corresponds to which colour.</li>
+</ul>
+<p>For multiplexed messages, a combo box above the grid selects the
+multiplexer value. The layout updates to show the signals valid for the
+selected mux value.</p>
+<h3 id="value-tables-tab">Value Tables Tab</h3>
+<p>Shows the enumeration tables for signals that have named values
+defined in the database. Each such signal is listed by name; beneath it
+a two-column table maps each raw integer value to its human-readable
+description. Signals with no value table are omitted. If no signal in
+the message has a value table, the tab shows a note to that effect.</p>
+<h3 id="validation-tab">Validation Tab</h3>
+<p>Analyses the message definition and reports potential problems.
+Issues are shown in a table with a severity indicator and a
+description.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Severity</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Error</strong></td>
+<td>A definite problem — signal bit-length is zero, a signal exceeds the
+message DLC, or two signals occupy the same bit position</td>
+</tr>
+<tr>
+<td><strong>Warning</strong></td>
+<td>A likely problem — a signal uses a scale factor of zero (all decoded
+values would be zero)</td>
+</tr>
+</tbody>
+</table>
+<p>Overlapping bits between multiplexed signals that belong to different
+multiplexer values are not flagged, because those signals are never
+active at the same time. If no issues are found, the tab displays a
+confirmation that the message definition is valid.</p>
+<h1 id="can-transmit">CAN Transmit</h1>
+<p>The CAN Transmit window allows you to compose, schedule, and send CAN
+frames. It supports both raw frames with manually edited bytes and
+database-backed frames with per-signal value control and animated
+waveforms.</p>
+<h2 id="adding-frames">Adding Frames</h2>
+<p>Use the toolbar buttons to add entries:</p>
+<ul>
+<li><strong>+ Add from DBC</strong> — opens a dialog to select a message
+from any loaded DBC or SYM database. The entry is pre-populated with all
+signals and their default values.</li>
+<li><strong>+ Add Raw</strong> — opens a dialog to define a raw frame by
+CAN ID, DLC, and initial data bytes.</li>
+</ul>
+<p>Entries can be removed by right-clicking the entry header and
+selecting <strong>Remove</strong>.</p>
+<h2 id="sending-frames">Sending Frames</h2>
+<p>Each entry has two send modes:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Control</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Send Once</strong></td>
+<td>Transmit the frame once immediately with the current signal
+values</td>
+</tr>
+<tr>
+<td><strong>Start Periodic</strong></td>
+<td>Begin transmitting the frame at the specified period (ms)</td>
+</tr>
+<tr>
+<td><strong>Stop Periodic</strong></td>
+<td>Halt periodic transmission</td>
+</tr>
+</tbody>
+</table>
+<p>The period field sets the interval in milliseconds between successive
+transmissions. When periodic transmission is active, the entry header
+displays the current period.</p>
+<h2 id="dbc-message-entries">DBC Message Entries</h2>
+<p>For frames added from a database, the entry expands to show a signal
+table:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Signal [Unit]</td>
+<td>Signal name and engineering unit</td>
+</tr>
+<tr>
+<td>Value</td>
+<td>Current physical value — editable input field or enum dropdown</td>
+</tr>
+<tr>
+<td>Range</td>
+<td>Min/max slider for quickly sweeping through the signal range</td>
+</tr>
+<tr>
+<td>Behavior</td>
+<td>Waveform animation mode (see below)</td>
+</tr>
+<tr>
+<td>Period mult.</td>
+<td>Waveform speed relative to the frame transmission period</td>
+</tr>
+</tbody>
+</table>
+<h3 id="signal-behaviors">Signal Behaviors</h3>
+<p>The <strong>Behavior</strong> column controls how the signal value
+changes on each periodic transmission:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Behavior</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Fixed</strong></td>
+<td>Value stays constant at the manually entered value</td>
+</tr>
+<tr>
+<td><strong>Ramp Up</strong></td>
+<td>Value increments from min to max, then wraps back to min</td>
+</tr>
+<tr>
+<td><strong>Ramp Up-Down</strong></td>
+<td>Value ramps from min to max, then back to min (sawtooth)</td>
+</tr>
+<tr>
+<td><strong>Sine</strong></td>
+<td>Value follows a sine wave between min and max</td>
+</tr>
+</tbody>
+</table>
+<p>The <strong>Period mult.</strong> setting controls how many frame
+transmissions make up one full waveform cycle. The minimum effective
+cycle is 200 ms.</p>
+<p>Animated signals (any mode other than Fixed) show the current
+animated value in the value column as read-only. Switch back to Fixed to
+regain manual control.</p>
+<h3 id="enum-signals">Enum Signals</h3>
+<p>Signals with named value descriptions in the database show a dropdown
+instead of a numeric input or slider. Select a value by name from the
+dropdown.</p>
+<h2 id="raw-frame-entries">Raw Frame Entries</h2>
+<p>Raw entries show a DLC selector and a row of byte fields. Each byte
+is edited as a two-digit hexadecimal value
+(<code>00</code>–<code>FF</code>). The raw bytes are sent as-is without
+any database encoding.</p>
+<h1 id="can-statistics">CAN Statistics</h1>
+<p>The CAN Statistics window shows real-time bus health metrics for
+every active channel — bus load, traffic counters, error rates, and
+hardware status.</p>
+<h2 id="layout-5">Layout</h2>
+<p>The window contains one collapsible section per active channel. The
+section header shows the channel index, device identifier, channel type
+(Physical, Virtual, or Replay), and configured bitrate.</p>
+<p>A <strong>Reset</strong> button in the top-right corner of each
+physical channel header resets the hardware error counters on the
+adapter.</p>
+<blockquote>
+<p>Replay channels display a “Statistics not available” message —
+metrics are not meaningful for file-based sessions.</p>
+</blockquote>
+<h2 id="bus-status">Bus Status</h2>
+<p>Shows the current hardware error state reported by the adapter:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>State</th>
+<th>Colour</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Error Active</td>
+<td>Green</td>
+<td>Normal operation</td>
+</tr>
+<tr>
+<td>Warning</td>
+<td>Yellow</td>
+<td>Error counters are elevated but below the passive threshold</td>
+</tr>
+<tr>
+<td>Error Passive</td>
+<td>Orange</td>
+<td>Error counter exceeded 127; the node is restricted</td>
+</tr>
+<tr>
+<td>Bus-Off</td>
+<td>Red</td>
+<td>Error counter exceeded 255; the node has disconnected from the
+bus</td>
+</tr>
+</tbody>
+</table>
+<p><strong>TEC</strong> (Transmit Error Count) and <strong>REC</strong>
+(Receive Error Count) are shown below the state when the hardware
+supports reading them. Values are colour-coded: green below 96, yellow
+up to 127, orange up to 255, red at bus-off threshold.</p>
+<h2 id="bus-load">Bus Load</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Now</td>
+<td>Software-estimated bus utilisation over the most recent measurement
+window (%)</td>
+</tr>
+<tr>
+<td>Avg</td>
+<td>Rolling average load since the session started</td>
+</tr>
+<tr>
+<td>Max</td>
+<td>Peak load observed during the session</td>
+</tr>
+</tbody>
+</table>
+<p>A colour-coded progress bar provides an at-a-glance view: green below
+50 %, yellow at 50 %, red above 50 %. Hardware load readings from the
+adapter are shown separately when available.</p>
+<h2 id="traffic">Traffic</h2>
+<p>Counts of frames observed since the session started, broken down by
+frame type:</p>
+<p><strong>Received:</strong> Total, Extended ID, CAN FD, Remote<br />
+<strong>Transmitted:</strong> Total, Extended ID, CAN FD<br />
+<strong>Bytes:</strong> Total bytes received and transmitted</p>
+<h2 id="error-frames">Error Frames</h2>
+<p>A breakdown of CAN error frames by error type:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bit</td>
+<td>Bit error detected during transmission</td>
+</tr>
+<tr>
+<td>Form</td>
+<td>Frame format violation</td>
+</tr>
+<tr>
+<td>Stuff</td>
+<td>Bit stuffing rule violation</td>
+</tr>
+<tr>
+<td>CRC</td>
+<td>CRC mismatch</td>
+</tr>
+<tr>
+<td>Ack</td>
+<td>Missing acknowledge</td>
+</tr>
+<tr>
+<td>Bus-Off</td>
+<td>Bus-off events</td>
+</tr>
+<tr>
+<td>Passive</td>
+<td>Error passive transitions</td>
+</tr>
+<tr>
+<td>Warning</td>
+<td>Warning level transitions</td>
+</tr>
+<tr>
+<td>Other</td>
+<td>Errors not matching any specific category</td>
+</tr>
+</tbody>
+</table>
+<p>Error counts are colour-coded on a logarithmic scale: dimmed when
+zero, yellow for 1–9, orange for 10–999, red for 1 000 and above.</p>
+<h1 id="licensing-1">Licensing</h1>
+<p>CanLover uses a feature-based licensing system. A subset of windows
+and capabilities requires a valid license file; the rest of the
+application runs without one.</p>
+<h2 id="license-file">License File</h2>
+<p>The license is a JSON file placed in the CanLover application data
+directory. It is loaded automatically at startup. No manual import step
+is required — simply copy the license file to the correct location and
+restart the application.</p>
+<p>The expected location on each platform:</p>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows</td>
+<td><code>%APPDATA%\CanLover\license.json</code></td>
+</tr>
+<tr>
+<td>Linux</td>
+<td><code>~/.config/CanLover/license.json</code></td>
+</tr>
+<tr>
+<td>macOS</td>
+<td><code>~/Library/Application Support/CanLover/license.json</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="license-properties">License Properties</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Licensee</td>
+<td>Name of the organisation or individual the license was issued
+to</td>
+</tr>
+<tr>
+<td>Expiry</td>
+<td><code>perpetual</code> for a permanent license, or a date in
+<code>YYYY-MM-DD</code> format</td>
+</tr>
+<tr>
+<td>Features</td>
+<td>Bitmask of enabled features (see table below)</td>
+</tr>
+<tr>
+<td>Fingerprint</td>
+<td>Hardware identifier — the license is bound to a specific
+machine</td>
+</tr>
+</tbody>
+</table>
+<p>A license with an expiry date will stop granting access to licensed
+features after the expiry date. The application continues to run with
+unlicensed features available.</p>
+<h2 id="licensed-features">Licensed Features</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DBC Decoder</strong></td>
+<td>Signal decoding from DBC and SYM files; enables the Signal Table
+window and decoded overlays in the Raw Trace</td>
+</tr>
+<tr>
+<td><strong>Signal Plot</strong></td>
+<td>Time-series signal plotting (Signal Plot window)</td>
+</tr>
+<tr>
+<td><strong>Node Logic</strong></td>
+<td>Visual scripting canvas — react to CAN events and automate frame
+transmission without writing code</td>
+</tr>
+<tr>
+<td><strong>J1939 Decoder</strong></td>
+<td>J1939 PGN/SPN decoding and the J1939 Network window</td>
+</tr>
+<tr>
+<td><strong>DTC Panel</strong></td>
+<td>J1939 DM1/DM2 diagnostic trouble code display</td>
+</tr>
+<tr>
+<td><strong>Freeze Frame</strong></td>
+<td>J1939 DM25 freeze frame viewer</td>
+</tr>
+<tr>
+<td><strong>Data Logger</strong></td>
+<td>Session recording and export to ASC, TRC, and BLF formats</td>
+</tr>
+<tr>
+<td><strong>Database Browser</strong></td>
+<td>DBC/SYM file inspector with bit layout visualisation</td>
+</tr>
+</tbody>
+</table>
+<p>Features not listed above (Raw Trace, CAN Statistics, CAN Transmit
+with raw frames, Bus Configuration) are available in all configurations
+without a license.</p>
+<h2 id="obtaining-a-license">Obtaining a License</h2>
+<p>Contact the CanLover sales team to purchase a license. Provide your
+machine identifier, which can be found in the <strong>About</strong>
+dialog under <strong>Help → About</strong>. License files are issued per
+machine and cannot be transferred to a different computer.</p>
+<h2 id="license-validation">License Validation</h2>
+<p>CanLover verifies the license signature using an embedded Ed25519
+public key on every startup. Tampered or incorrectly generated license
+files are rejected. The application also monitors system time integrity
+to prevent circumventing expiry dates by setting the clock back.</p>
+<h1 id="workspaces">Workspaces</h1>
+<p>Workspaces let you save and restore the visual layout of the
+application — which windows are open, where they are docked, and how the
+dockspace is arranged. Each workspace is independent; switching between
+them instantly loads the saved layout without affecting the active bus
+session or any channel configuration.</p>
+<h2 id="the-workspace-tab-bar">The Workspace Tab Bar</h2>
+<p>A tab bar sits just below the toolbar. Each tab represents one saved
+workspace. Click a tab to switch to that layout.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Action</th>
+<th>How</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Switch workspace</td>
+<td>Click the tab</td>
+</tr>
+<tr>
+<td>Add a workspace</td>
+<td>Click the <strong>+</strong> button at the right end of the tab
+bar</td>
+</tr>
+<tr>
+<td>Close a workspace</td>
+<td>Click the <strong>×</strong> on the tab (visible when more than one
+workspace exists)</td>
+</tr>
+<tr>
+<td>Rename a workspace</td>
+<td>Right-click the tab → <strong>Rename</strong></td>
+</tr>
+<tr>
+<td>Remove a workspace</td>
+<td>Right-click the tab → <strong>Remove</strong>, or click
+<strong>×</strong></td>
+</tr>
+</tbody>
+</table>
+<p>When you add a new workspace you can choose:</p>
+<ul>
+<li><strong>New empty</strong> — starts with all windows floating at
+their default positions.</li>
+<li><strong>Duplicate current</strong> — copies the current layout as a
+starting point.</li>
+</ul>
+<h2 id="saving-and-loading">Saving and Loading</h2>
+<p>Workspaces are saved automatically to <code>workspaces.json</code> in
+the application configuration directory when the application exits, and
+loaded again on the next startup. The last active workspace is
+restored.</p>
+<p>You can also save and load workspaces to arbitrary files via the
+<strong>File</strong> menu:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Menu item</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>File → Save Workspace</strong></td>
+<td>Captures the current layout and writes it to
+<code>workspaces.json</code> immediately (without waiting for
+exit).</td>
+</tr>
+<tr>
+<td><strong>File → Save Workspace to File…</strong></td>
+<td>Opens a save dialog and exports the current workspace to a
+<code>.json</code> file you choose.</td>
+</tr>
+<tr>
+<td><strong>File → Load Workspace from File…</strong></td>
+<td>Opens a file dialog; the imported workspace is added as a new tab
+and activated.</td>
+</tr>
+</tbody>
+</table>
+<p>Exported workspace files are plain JSON and can be shared between
+machines or committed to version control alongside a project.</p>
+<h2 id="what-is-saved">What Is Saved</h2>
+<p>Each workspace stores:</p>
+<ul>
+<li><strong>Docking layout</strong> — the full ImGui dockspace state
+(window positions, sizes, split ratios, tab groupings).</li>
+<li><strong>Window visibility</strong> — which windows are open or
+hidden.</li>
+</ul>
+<p>The following are <em>not</em> part of a workspace and are shared
+across all workspaces:</p>
+<ul>
+<li>Hardware channel configuration (adapters, baud rates, database
+assignments).</li>
+<li>Active bus connection or replay state.</li>
+<li>Application settings such as the colour theme.</li>
+</ul>
+<h2 id="configuration-directory">Configuration Directory</h2>
+<p>Workspaces are persisted in the platform-specific configuration
+directory alongside <code>canlover_settings.json</code>:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows</td>
+<td><code>%APPDATA%\CanLover\workspaces.json</code></td>
+</tr>
+<tr>
+<td>Linux</td>
+<td><code>$XDG_CONFIG_HOME/canlover/workspaces.json</code> (default:
+<code>~/.config/canlover/</code>)</td>
+</tr>
+<tr>
+<td>macOS</td>
+<td><code>~/Library/Application Support/CanLover/workspaces.json</code></td>
+</tr>
+</tbody>
+</table>
+<h1 id="node-logic">Node Logic</h1>
+<p>Node Logic is a visual programming environment built into CanLover.
+Wire together <strong>event</strong>, <strong>logic</strong>,
+<strong>data</strong>, and <strong>action</strong> nodes on a canvas to
+create scripts that react to live CAN traffic — no code required.</p>
+<blockquote>
+<p><strong>License required:</strong> Node Logic requires the <em>Node
+Logic</em> feature in the license.</p>
+</blockquote>
+<h2 id="opening-the-editor">Opening the Editor</h2>
+<p>Open the Node Logic window from <strong>Windows → Node Logic</strong>
+in the main menu bar. The window contains a toolbar at the top, a log
+panel, and the node canvas below.</p>
+<h2 id="toolbar">Toolbar</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Button</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Run</strong></td>
+<td>Validate the graph and start execution. Any errors are printed to
+the log; the graph stays stopped until all errors are resolved.</td>
+</tr>
+<tr>
+<td><strong>Stop</strong></td>
+<td>Halt execution and unregister all event handlers. Editing resumes
+immediately.</td>
+</tr>
+<tr>
+<td><strong>Save</strong></td>
+<td>Persist the current graph to <code>node_graph.json</code> in the
+application configuration directory.</td>
+</tr>
+<tr>
+<td><strong>Load</strong></td>
+<td>Load a previously saved graph from
+<code>node_graph.json</code>.</td>
+</tr>
+<tr>
+<td><strong>Clear</strong></td>
+<td>Delete all nodes and links from the canvas.</td>
+</tr>
+</tbody>
+</table>
+<p>While the graph is <strong>running</strong>, node and link editing is
+locked — the canvas is read-only until you press
+<strong>Stop</strong>.</p>
+<h2 id="concepts">Concepts</h2>
+<h3 id="event-nodes">Event Nodes</h3>
+<p>Execution always starts at an event node. When the node’s condition
+fires, the graph traverses the exec chain connected to that node’s exec
+output.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Node</th>
+<th>Fires when…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>OnMessageReceived</strong></td>
+<td>A CAN frame with the configured CAN ID arrives on the bus</td>
+</tr>
+<tr>
+<td><strong>OnSignalCondition</strong></td>
+<td>A decoded signal crosses a threshold (rising edge only — fires once
+per crossing)</td>
+</tr>
+<tr>
+<td><strong>OnSignalChanged</strong></td>
+<td>A decoded signal value changes from its previous value</td>
+</tr>
+<tr>
+<td><strong>OnTimer</strong></td>
+<td>A configurable interval elapses (frame-rate-driven; minimum ≈ 16 ms
+at 60 FPS)</td>
+</tr>
+<tr>
+<td><strong>OnSessionStart</strong></td>
+<td>The graph is started via the Run button</td>
+</tr>
+<tr>
+<td><strong>OnSessionStop</strong></td>
+<td>The graph is stopped via the Stop button</td>
+</tr>
+</tbody>
+</table>
+<h3 id="exec-flow-nodes">Exec (Flow) Nodes</h3>
+<p>Exec nodes control the flow of execution.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Node</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Branch</strong></td>
+<td>Evaluates a Bool condition; routes execution to the True or False
+output</td>
+</tr>
+<tr>
+<td><strong>Sequence</strong></td>
+<td>Fires each exec output pin in order — the idiomatic fan-out
+node</td>
+</tr>
+<tr>
+<td><strong>Gate</strong></td>
+<td>Passes execution only when the Enable pin is true</td>
+</tr>
+<tr>
+<td><strong>DoOnce</strong></td>
+<td>Fires once, then blocks until the Reset exec input is triggered</td>
+</tr>
+<tr>
+<td><strong>DoNTimes</strong></td>
+<td>Loops N times, exposing a per-iteration Index output; fires a Done
+exec output when finished</td>
+</tr>
+<tr>
+<td><strong>Counter</strong></td>
+<td>Increments an internal counter on Execute; Reset sets it to zero;
+outputs the current count</td>
+</tr>
+</tbody>
+</table>
+<h3 id="data-nodes">Data Nodes</h3>
+<p>Data nodes compute values. They are evaluated lazily when an exec
+node reads their output, and the result is memoised for the duration of
+a single event firing.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Node</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Constant</strong></td>
+<td>A fixed literal — Bool, Int, Float, or String</td>
+</tr>
+<tr>
+<td><strong>Compare</strong></td>
+<td>Comparison of two values using <code>==</code>, <code>!=</code>,
+<code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>,
+<code>&gt;=</code>; outputs a Bool</td>
+</tr>
+<tr>
+<td><strong>MathOp</strong></td>
+<td>Arithmetic on two floats: Add, Subtract, Multiply, Divide</td>
+</tr>
+<tr>
+<td><strong>Clamp</strong></td>
+<td>Clamps a Float to a configurable [Min, Max] range</td>
+</tr>
+<tr>
+<td><strong>MapRange</strong></td>
+<td>Linearly remaps a value from one range to another</td>
+</tr>
+<tr>
+<td><strong>BoolAND / BoolOR / BoolNOT</strong></td>
+<td>Boolean logic gates</td>
+</tr>
+<tr>
+<td><strong>Reroute</strong></td>
+<td>Pass-through wire — a cosmetic routing helper</td>
+</tr>
+<tr>
+<td><strong>GetVariable</strong></td>
+<td>Reads a named variable from the graph’s shared variable store</td>
+</tr>
+<tr>
+<td><strong>GetSignalValue</strong></td>
+<td>Returns the latest physical value of a decoded signal, looked up by
+message name and signal name</td>
+</tr>
+<tr>
+<td><strong>GetMessageByte</strong></td>
+<td>Extracts one byte at a given index from a raw CAN frame byte
+array</td>
+</tr>
+</tbody>
+</table>
+<h3 id="action-nodes">Action Nodes</h3>
+<p>Action nodes interact with the CAN session. They require an open CAN
+library to be loaded; the validator blocks the graph from starting if
+action nodes are present but no hardware (or virtual) session is
+active.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Node</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SetVariable</strong></td>
+<td>Stores a value in the graph’s named variable store</td>
+</tr>
+<tr>
+<td><strong>SendFrame</strong></td>
+<td>Transmits a raw CAN frame with the configured CAN ID, DLC, channel,
+and data bytes</td>
+</tr>
+<tr>
+<td><strong>SendSignal</strong></td>
+<td>Encodes a physical signal value into a DBC message and transmits the
+resulting frame</td>
+</tr>
+<tr>
+<td><strong>StartPeriodic</strong></td>
+<td>Registers a periodic TX task with the CAN scheduler at the
+configured period; outputs the task ID</td>
+</tr>
+<tr>
+<td><strong>StopPeriodic</strong></td>
+<td>Removes a periodic TX task by its task ID</td>
+</tr>
+<tr>
+<td><strong>LogMessage</strong></td>
+<td>Prints a labelled value to the Node Logic log panel</td>
+</tr>
+</tbody>
+</table>
+<h2 id="building-a-graph">Building a Graph</h2>
+<ol type="1">
+<li><strong>Right-click</strong> on the canvas to open the node browser.
+Type to filter by name, then click a node type to place it.</li>
+<li><strong>Drag</strong> from any output pin to a compatible input pin
+to create a link. Incompatible pin types show a red indicator.</li>
+<li><strong>Double-click</strong> a node header to open its
+configuration popover (CAN ID, timer interval, signal name, comparison
+operator, etc.).</li>
+<li>Press <strong>Run</strong> in the toolbar. Any validation errors
+appear in the log and must be resolved before execution begins.</li>
+<li>Press <strong>Stop</strong> to halt at any time.</li>
+</ol>
+<h2 id="pin-types-and-connections">Pin Types and Connections</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Colour</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exec</td>
+<td>White</td>
+<td>Control-flow wire — defines execution order</td>
+</tr>
+<tr>
+<td>Bool</td>
+<td>Yellow</td>
+<td>Boolean true / false</td>
+</tr>
+<tr>
+<td>Int</td>
+<td>Cyan</td>
+<td>64-bit signed integer</td>
+</tr>
+<tr>
+<td>Float</td>
+<td>Green</td>
+<td>Double-precision floating-point number</td>
+</tr>
+<tr>
+<td>String</td>
+<td>Purple</td>
+<td>UTF-8 text</td>
+</tr>
+<tr>
+<td>Bytes</td>
+<td>Orange</td>
+<td>Raw byte array</td>
+</tr>
+</tbody>
+</table>
+<p>Numeric types (Bool, Int, Float) accept each other with automatic
+coercion: a Float connected to an Int pin truncates to integer; a Bool
+connected to a Float pin yields 0.0 or 1.0.</p>
+<h2 id="validation">Validation</h2>
+<p>The validator runs automatically when you press Run. Common
+errors:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Error</th>
+<th>Cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No event nodes</td>
+<td>The graph contains no node that can initiate execution</td>
+</tr>
+<tr>
+<td>Library required but absent</td>
+<td>A SendFrame / StartPeriodic node exists but no CAN hardware session
+is open</td>
+</tr>
+<tr>
+<td>Interval ≤ 0</td>
+<td>An OnTimer node has a zero or negative interval</td>
+</tr>
+<tr>
+<td>Empty CAN ID</td>
+<td>A SendFrame or OnMessageReceived node has no CAN ID configured</td>
+</tr>
+<tr>
+<td>Empty signal name</td>
+<td>A signal-bound node has no message or signal name configured</td>
+</tr>
+</tbody>
+</table>
+<p>Warnings (non-blocking) are shown for disconnected event nodes and
+unreachable subgraphs.</p>
+<h2 id="execution-model">Execution Model</h2>
+<ul>
+<li><strong>Thread safety</strong>: the entire graph runs on the render
+thread. CAN receive, decode, and TX threads are never touched — a slow
+graph only lowers frame rate, never drops CAN frames.</li>
+<li><strong>OnTimer</strong> fires at most once per rendered frame. At
+60 FPS the minimum effective interval is ≈ 16 ms.</li>
+<li><strong>CAN-driven events</strong> (OnMessageReceived,
+OnSignalCondition, OnSignalChanged) fire synchronously inside
+<code>drain()</code> and therefore see fully decoded signal values for
+the current frame batch.</li>
+<li><strong>Data node memoisation</strong>: each data node evaluates at
+most once per event firing. Subsequent reads within the same chain
+return the cached result.</li>
+</ul>
+<h2 id="saving-and-loading-1">Saving and Loading</h2>
+<p>The graph is saved automatically when the Node Logic window is
+closed, and reloaded when it is next opened. To include the graph in a
+workspace, use <strong>File → Save Workspace</strong>.</p>
+<h2 id="usage-tips-4">Usage Tips</h2>
+<ul>
+<li>Use a <strong>Sequence</strong> node to fan out from a single event
+to multiple action chains.</li>
+<li><strong>DoOnce</strong> before a <strong>SendFrame</strong> is a
+clean way to send an initialisation frame exactly once when the session
+starts — connect <strong>OnSessionStart → DoOnce →
+SendFrame</strong>.</li>
+<li>Use <strong>SetVariable</strong> / <strong>GetVariable</strong> to
+pass data between independent event chains without running wires across
+the canvas.</li>
+<li>Keep <strong>OnTimer</strong> intervals above 50 ms for periodic CAN
+TX — very short intervals can saturate the bus.</li>
+<li>The <strong>Counter</strong> node combined with
+<strong>Branch</strong> lets you trigger an action every N-th frame
+rather than every frame.</li>
+</ul>
+</body>
+</html>

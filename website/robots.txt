@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://canlover.ddns.net/sitemap.xml

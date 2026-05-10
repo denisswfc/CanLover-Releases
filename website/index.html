@@ -1,0 +1,2368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CanLover — CAN Bus Analyzer | Free CANalyzer Alternative for Linux &amp; Windows</title>
+  <meta name="description" content="A modern, lightweight CAN bus analyzer for Linux and Windows. The free alternative to Vector CANalyzer and PEAK PCAN-View — native SocketCAN, DBC/SYM decoding, J1939, Signal Plot, and more." />
+  <meta name="keywords" content="CAN bus analyzer, CANalyzer alternative, PCAN-View alternative, SocketCAN GUI, DBC file viewer, J1939 analyzer, CAN logger, CAN bus software linux, CAN bus software windows, embedded systems, automotive engineering, EV CAN bus" />
+
+  <!-- SEO: indexing -->
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://canlover.ddns.net/" />
+
+  <!-- SEO: Open Graph (social sharing + Google rich results) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://canlover.ddns.net/" />
+  <meta property="og:title" content="CanLover — Free CAN Bus Analyzer | CANalyzer Alternative for Linux &amp; Windows" />
+  <meta property="og:description" content="A modern, lightweight CAN bus analyzer for Linux and Windows. The free alternative to Vector CANalyzer and PEAK PCAN-View — native SocketCAN, DBC/SYM decoding, J1939, Signal Plot, and more." />
+  <meta property="og:image" content="https://canlover.ddns.net/og-image.png" />
+  <meta property="og:site_name" content="CanLover" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- SEO: Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="CanLover — Free CAN Bus Analyzer | CANalyzer Alternative for Linux &amp; Windows" />
+  <meta name="twitter:description" content="A modern, lightweight CAN bus analyzer for Linux and Windows. The free alternative to Vector CANalyzer and PEAK PCAN-View — native SocketCAN, DBC/SYM decoding, J1939, Signal Plot, and more." />
+  <meta name="twitter:image" content="https://canlover.ddns.net/og-image.png" />
+
+  <!-- SEO: Structured data (Google rich results) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "CanLover",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Linux, Windows",
+    "description": "A modern, lightweight CAN bus analyzer for Linux and Windows. The free alternative to Vector CANalyzer and PEAK PCAN-View — native SocketCAN, DBC/SYM decoding, J1939, Signal Plot, and more.",
+    "url": "https://canlover.ddns.net/",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "EUR",
+      "price": "0",
+      "description": "Free core with modular paid add-ons"
+    },
+    "keywords": "CAN bus analyzer, CANalyzer alternative, PCAN-View alternative, SocketCAN GUI, DBC file viewer, J1939 analyzer, CAN logger, automotive, embedded systems, EV, SocketCAN, DBC, PEAK, Vector, Kvaser",
+    "author": {
+      "@type": "Organization",
+      "name": "CanLover"
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ──────────────────────────────────────────────
+       Catppuccin Mocha palette
+    ────────────────────────────────────────────── */
+    :root {
+      --crust:    #11111b;
+      --mantle:   #181825;
+      --base:     #1e1e2e;
+      --surface0: #313244;
+      --surface1: #45475a;
+      --surface2: #585b70;
+      --overlay0: #6c7086;
+      --overlay1: #7f849c;
+      --overlay2: #9399b2;
+      --subtext0: #a6adc8;
+      --subtext1: #bac2de;
+      --text:     #cdd6f4;
+      --lavender: #b4befe;
+      --blue:     #89b4fa;
+      --sapphire: #74c7ec;
+      --sky:      #89dceb;
+      --teal:     #94e2d5;
+      --green:    #a6e3a1;
+      --yellow:   #f9e2af;
+      --peach:    #fab387;
+      --maroon:   #eba0ac;
+      --red:      #f38ba8;
+      --mauve:    #cba6f7;
+      --pink:     #f5c2e7;
+      --flamingo: #f2cdcd;
+      --rosewater:#f5e0dc;
+
+      --accent:   var(--blue);
+      --accent2:  var(--mauve);
+      --accent3:  var(--teal);
+      --radius:   10px;
+      --radius-lg:16px;
+      --mono:     'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+      --sans:     'Inter', system-ui, -apple-system, sans-serif;
+      --transition: 0.2s ease;
+    }
+
+    /* ──────────────────────────────────────────────
+       Reset & base
+    ────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      background: var(--base);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--lavender); }
+
+    img { display: block; max-width: 100%; }
+
+    /* ──────────────────────────────────────────────
+       Utility classes
+    ────────────────────────────────────────────── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: var(--mono);
+      padding: 0.25rem 0.625rem;
+      border-radius: 4px;
+      background: var(--surface0);
+      color: var(--subtext1);
+      border: 1px solid var(--surface1);
+    }
+    .badge--blue   { background: rgba(137,180,250,0.12); color: var(--blue);   border-color: rgba(137,180,250,0.3); }
+    .badge--mauve  { background: rgba(203,166,247,0.12); color: var(--mauve);  border-color: rgba(203,166,247,0.3); }
+    .badge--teal   { background: rgba(148,226,213,0.12); color: var(--teal);   border-color: rgba(148,226,213,0.3); }
+    .badge--green  { background: rgba(166,227,161,0.12); color: var(--green);  border-color: rgba(166,227,161,0.3); }
+    .badge--peach  { background: rgba(250,179,135,0.12); color: var(--peach);  border-color: rgba(250,179,135,0.3); }
+    .badge--yellow { background: rgba(249,226,175,0.12); color: var(--yellow); border-color: rgba(249,226,175,0.3); }
+
+    .tag {
+      font-size: 0.7rem;
+      font-family: var(--mono);
+      font-weight: 600;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      background: rgba(137,180,250,0.15);
+      color: var(--blue);
+      border: 1px solid rgba(137,180,250,0.3);
+      white-space: nowrap;
+    }
+    .tag--license {
+      background: rgba(249,226,175,0.12);
+      color: var(--yellow);
+      border-color: rgba(249,226,175,0.3);
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-family: var(--mono);
+      font-weight: 600;
+      color: var(--blue);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--subtext1);
+      max-width: 600px;
+      line-height: 1.7;
+    }
+
+    /* ──────────────────────────────────────────────
+       Buttons
+    ────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius);
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+      white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary {
+      background: var(--blue);
+      color: var(--mantle);
+      box-shadow: 0 4px 16px rgba(137,180,250,0.3);
+    }
+    .btn-primary:hover {
+      background: var(--lavender);
+      color: var(--mantle);
+      box-shadow: 0 6px 24px rgba(180,190,254,0.4);
+    }
+
+    .btn-secondary {
+      background: var(--surface0);
+      color: var(--text);
+      border: 1px solid var(--surface1);
+    }
+    .btn-secondary:hover {
+      background: var(--surface1);
+      color: var(--text);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--blue);
+      border: 1.5px solid var(--blue);
+    }
+    .btn-outline:hover {
+      background: rgba(137,180,250,0.1);
+      color: var(--lavender);
+      border-color: var(--lavender);
+    }
+
+    /* ──────────────────────────────────────────────
+       Navigation
+    ────────────────────────────────────────────── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(24, 24, 37, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--surface0);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .nav-logo-icon img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--subtext1);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      transition: background var(--transition), color var(--transition);
+    }
+    .nav-links a:hover {
+      background: var(--surface0);
+      color: var(--text);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text);
+      padding: 0.5rem;
+    }
+
+    /* ──────────────────────────────────────────────
+       Hero
+    ────────────────────────────────────────────── */
+    .hero {
+      padding: 6rem 0 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      left: -20%;
+      width: 80%;
+      height: 120%;
+      background: radial-gradient(ellipse at 30% 40%, rgba(137,180,250,0.07) 0%, transparent 60%),
+                  radial-gradient(ellipse at 70% 60%, rgba(203,166,247,0.05) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-title {
+      font-size: clamp(2.25rem, 5vw, 3.75rem);
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, var(--blue), var(--mauve));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--subtext1);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      max-width: 500px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-compat {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-compat-label {
+      font-size: 0.8rem;
+      color: var(--overlay1);
+      font-weight: 500;
+    }
+
+    /* ── Fake trace window ── */
+    .trace-window {
+      background: var(--mantle);
+      border: 1px solid var(--surface0);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(137,180,250,0.08);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+    }
+
+    .trace-titlebar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      background: var(--crust);
+      border-bottom: 1px solid var(--surface0);
+    }
+
+    .trace-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .trace-dot-red    { background: #f38ba8; }
+    .trace-dot-yellow { background: #f9e2af; }
+    .trace-dot-green  { background: #a6e3a1; }
+
+    .trace-titlebar-text {
+      margin-left: 0.5rem;
+      color: var(--overlay1);
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .trace-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.5rem 1rem;
+      border-bottom: 1px solid var(--surface0);
+      background: var(--mantle);
+    }
+
+    .trace-toolbar-btn {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .trace-btn-connect {
+      background: rgba(166,227,161,0.15);
+      color: var(--green);
+      border: 1px solid rgba(166,227,161,0.3);
+    }
+    .trace-btn-clear {
+      background: var(--surface0);
+      color: var(--subtext0);
+      border: 1px solid var(--surface1);
+    }
+
+    .trace-filter {
+      margin-left: auto;
+      background: var(--surface0);
+      border: 1px solid var(--surface1);
+      border-radius: 4px;
+      padding: 0.2rem 0.5rem;
+      color: var(--overlay0);
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      width: 120px;
+    }
+
+    .trace-header {
+      display: grid;
+      grid-template-columns: 75px 30px 65px 30px 1fr 90px;
+      padding: 0.35rem 1rem;
+      color: var(--overlay0);
+      font-size: 0.65rem;
+      font-weight: 600;
+      border-bottom: 1px solid var(--surface0);
+      background: var(--base);
+      letter-spacing: 0.04em;
+    }
+
+    .trace-body {
+      height: 240px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .trace-rows {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      animation: scrollUp 12s linear infinite;
+    }
+
+    @keyframes scrollUp {
+      0%   { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+
+    .trace-row {
+      display: grid;
+      grid-template-columns: 75px 30px 65px 30px 1fr 90px;
+      padding: 0.25rem 1rem;
+      font-size: 0.65rem;
+      border-bottom: 1px solid rgba(49,50,68,0.5);
+      transition: background 0.1s;
+    }
+    .trace-row:hover { background: var(--surface0); }
+
+    .trace-row.tr-tx { background: rgba(137,180,250,0.04); }
+    .trace-row.tr-new { background: rgba(166,227,161,0.05); }
+
+    .tc-ts    { color: var(--overlay1); }
+    .tc-ch    { color: var(--sapphire); }
+    .tc-id    { color: var(--blue); font-weight: 600; }
+    .tc-dlc   { color: var(--overlay0); }
+    .tc-data  { color: var(--teal); letter-spacing: 0.05em; }
+    .tc-msg   { color: var(--mauve); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
+    .trace-statusbar {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0.4rem 1rem;
+      border-top: 1px solid var(--surface0);
+      background: var(--crust);
+    }
+
+    .statusbar-item {
+      font-size: 0.65rem;
+      color: var(--overlay0);
+    }
+    .statusbar-item span {
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 6px var(--green);
+      animation: pulse 2s ease-in-out infinite;
+      display: inline-block;
+      margin-right: 0.3rem;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ──────────────────────────────────────────────
+       Trust bar
+    ────────────────────────────────────────────── */
+    .trust {
+      border-top: 1px solid var(--surface0);
+      border-bottom: 1px solid var(--surface0);
+      background: var(--mantle);
+      padding: 1.25rem 0;
+    }
+
+    .trust-inner {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .trust-label {
+      font-size: 0.78rem;
+      color: var(--overlay0);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .trust-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--surface1);
+    }
+
+    .trust-items {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--subtext1);
+    }
+
+    .trust-item svg {
+      color: var(--blue);
+    }
+
+    /* ──────────────────────────────────────────────
+       Features section
+    ────────────────────────────────────────────── */
+    .features {
+      padding: 6rem 0;
+    }
+
+    .features-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .features-header .section-sub {
+      margin: 0 auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .feature-card {
+      background: var(--mantle);
+      border: 1px solid var(--surface0);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--card-accent, linear-gradient(90deg, var(--blue), var(--mauve)));
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .feature-card:hover {
+      border-color: var(--surface1);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      font-size: 1.25rem;
+    }
+
+    .feature-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .feature-body {
+      font-size: 0.875rem;
+      color: var(--subtext0);
+      line-height: 1.65;
+      margin-bottom: 1rem;
+    }
+
+    .feature-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.375rem;
+    }
+
+    .pill {
+      font-size: 0.68rem;
+      font-family: var(--mono);
+      padding: 0.18rem 0.5rem;
+      border-radius: 4px;
+      background: var(--surface0);
+      color: var(--overlay2);
+      border: 1px solid var(--surface1);
+    }
+
+    /* featured (wide) card */
+    .feature-card--wide {
+      grid-column: span 2;
+    }
+    .feature-card--wide .feature-body {
+      max-width: 520px;
+    }
+
+    /* ──────────────────────────────────────────────
+       Architecture section
+    ────────────────────────────────────────────── */
+    .arch {
+      padding: 5rem 0;
+      background: var(--mantle);
+      border-top: 1px solid var(--surface0);
+      border-bottom: 1px solid var(--surface0);
+    }
+
+    .arch-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .arch-right {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .arch-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .arch-item-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: var(--surface0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.1rem;
+    }
+
+    .arch-item-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .arch-item-body {
+      font-size: 0.85rem;
+      color: var(--subtext0);
+      line-height: 1.6;
+    }
+
+    /* Code block decorative */
+    .code-block {
+      background: var(--crust);
+      border: 1px solid var(--surface0);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+    }
+
+    .code-block-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1rem;
+      background: var(--mantle);
+      border-bottom: 1px solid var(--surface0);
+    }
+
+    .code-block-title {
+      color: var(--overlay0);
+      font-size: 0.72rem;
+      font-weight: 600;
+      margin-left: 0.5rem;
+    }
+
+    .code-block-body {
+      padding: 1.25rem 1.25rem;
+      line-height: 1.8;
+    }
+
+    .code-block-body .kw  { color: var(--mauve); }
+    .code-block-body .fn  { color: var(--blue); }
+    .code-block-body .str { color: var(--green); }
+    .code-block-body .cm  { color: var(--overlay0); font-style: italic; }
+    .code-block-body .nb  { color: var(--peach); }
+    .code-block-body .ty  { color: var(--yellow); }
+    .code-block-body .op  { color: var(--teal); }
+
+    /* ──────────────────────────────────────────────
+       Platforms section
+    ────────────────────────────────────────────── */
+    .platforms {
+      padding: 5rem 0;
+    }
+
+    .platforms-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .platforms-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .platform-card {
+      background: var(--mantle);
+      border: 1px solid var(--surface0);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.75rem;
+      text-align: center;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+
+    .platform-card:hover {
+      border-color: var(--surface1);
+      transform: translateY(-2px);
+    }
+
+    .platform-card.platform-wip {
+      opacity: 0.65;
+    }
+
+    .platform-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .platform-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .platform-detail {
+      font-size: 0.83rem;
+      color: var(--subtext0);
+      line-height: 1.6;
+    }
+
+    .platform-status {
+      margin-top: 1rem;
+    }
+
+    /* ──────────────────────────────────────────────
+       Licensing section
+    ────────────────────────────────────────────── */
+    .licensing {
+      padding: 5rem 0;
+      background: var(--mantle);
+      border-top: 1px solid var(--surface0);
+      border-bottom: 1px solid var(--surface0);
+    }
+
+    .licensing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .license-features {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .license-feature-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      background: var(--base);
+      border: 1px solid var(--surface0);
+      border-radius: var(--radius);
+      transition: border-color var(--transition);
+    }
+
+    .license-feature-item:hover {
+      border-color: var(--surface1);
+    }
+
+    .license-feature-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .license-feature-desc {
+      font-size: 0.78rem;
+      color: var(--subtext0);
+      margin-top: 0.15rem;
+    }
+
+    .license-check {
+      color: var(--green);
+      font-size: 1rem;
+    }
+
+    .license-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .license-step {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .license-step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--surface0);
+      border: 1px solid var(--surface1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--blue);
+      flex-shrink: 0;
+    }
+
+    .license-step-content {
+      padding-top: 0.25rem;
+    }
+
+    .license-step-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .license-step-body {
+      font-size: 0.82rem;
+      color: var(--subtext0);
+      line-height: 1.6;
+    }
+
+    .license-step-connector {
+      width: 1px;
+      height: 1.25rem;
+      background: var(--surface1);
+      margin: 0 1rem 0 calc(1rem + 15px);
+    }
+
+    /* ──────────────────────────────────────────────
+       Comparison table
+    ────────────────────────────────────────────── */
+    .comparison {
+      padding: 5rem 0;
+    }
+
+    .comparison-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .comparison-table-wrap {
+      overflow-x: auto;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .comparison-table th {
+      padding: 1rem 1.5rem;
+      text-align: left;
+      font-weight: 700;
+      color: var(--subtext1);
+      background: var(--mantle);
+      border-bottom: 2px solid var(--surface0);
+      white-space: nowrap;
+    }
+
+    .comparison-table th.col-canlover {
+      color: var(--blue);
+      background: rgba(137,180,250,0.06);
+      border-bottom-color: rgba(137,180,250,0.4);
+    }
+
+    .comparison-table td {
+      padding: 0.85rem 1.5rem;
+      border-bottom: 1px solid var(--surface0);
+      color: var(--subtext0);
+      vertical-align: middle;
+    }
+
+    .comparison-table td.col-canlover {
+      background: rgba(137,180,250,0.04);
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .comparison-table tr:hover td {
+      background: var(--surface0);
+    }
+    .comparison-table tr:hover td.col-canlover {
+      background: rgba(137,180,250,0.08);
+    }
+
+    .comparison-table .row-label {
+      font-weight: 600;
+      color: var(--subtext1);
+    }
+
+    .cmp-yes  { color: var(--green); font-size: 1.1rem; }
+    .cmp-no   { color: var(--overlay0); font-size: 1rem; }
+    .cmp-part { color: var(--yellow); font-size: 0.85rem; font-weight: 500; }
+
+    /* ──────────────────────────────────────────────
+       CTA section
+    ────────────────────────────────────────────── */
+    .cta {
+      padding: 6rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(137,180,250,0.08) 0%, transparent 60%),
+                  radial-gradient(ellipse at 50% 100%, rgba(203,166,247,0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .cta-title {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .cta-sub {
+      font-size: 1.05rem;
+      color: var(--subtext1);
+      margin-bottom: 2.5rem;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ──────────────────────────────────────────────
+       Footer
+    ────────────────────────────────────────────── */
+    .footer {
+      background: var(--crust);
+      border-top: 1px solid var(--surface0);
+      padding: 3rem 0 2rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: var(--overlay0);
+      line-height: 1.7;
+      margin-top: 0.75rem;
+      max-width: 280px;
+    }
+
+    .footer-col-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--subtext0);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer-links a {
+      font-size: 0.875rem;
+      color: var(--overlay1);
+      transition: color var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--surface0);
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .footer-bottom-left {
+      font-size: 0.82rem;
+      color: var(--overlay0);
+    }
+
+    .footer-bottom-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* ──────────────────────────────────────────────
+       Responsive
+    ────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .feature-card--wide {
+        grid-column: span 1;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-actions .btn-outline {
+        display: none;
+      }
+      .nav-toggle {
+        display: block;
+      }
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+      .arch-grid {
+        grid-template-columns: 1fr;
+      }
+      .licensing-grid {
+        grid-template-columns: 1fr;
+      }
+      .platforms-grid {
+        grid-template-columns: 1fr;
+      }
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    /* ──────────────────────────────────────────────
+       Scrollbar styling
+    ────────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: var(--mantle); }
+    ::-webkit-scrollbar-thumb { background: var(--surface1); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--surface2); }
+
+    /* ── Releases section ─────────────────────────────────────────────────── */
+    .releases {
+      padding: 6rem 0;
+      background: var(--base);
+    }
+    .releases-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .releases-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .release-card {
+      background: var(--mantle);
+      border: 1px solid var(--surface0);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .release-card:hover { border-color: var(--surface2); }
+    .release-card--latest {
+      border-color: rgba(137,180,250,0.35);
+      box-shadow: 0 0 0 1px rgba(137,180,250,0.12);
+    }
+    .release-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--crust);
+      border-bottom: 1px solid var(--surface0);
+    }
+    .release-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+    }
+    .release-tag {
+      font-family: var(--mono);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--blue);
+    }
+    .release-date {
+      font-size: 0.8rem;
+      color: var(--subtext0);
+    }
+    .release-downloads {
+      display: flex;
+      gap: 0.625rem;
+      flex-wrap: wrap;
+    }
+    .btn-sm {
+      padding: 0.4rem 0.875rem;
+      font-size: 0.8rem;
+      gap: 0.375rem;
+    }
+    .release-body {
+      padding: 1.25rem 1.5rem;
+      color: var(--subtext1);
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+    .release-body h2, .release-body h3 {
+      color: var(--text);
+      margin: 1rem 0 0.4rem;
+      font-size: 0.95rem;
+    }
+    .release-body h2:first-child,
+    .release-body h3:first-child { margin-top: 0; }
+    .release-body ul { padding-left: 1.25rem; margin: 0.25rem 0 0.75rem; }
+    .release-body li { margin-bottom: 0.2rem; }
+    .release-body code {
+      background: var(--surface0);
+      border-radius: 4px;
+      padding: 0.1em 0.35em;
+      font-family: var(--mono);
+      font-size: 0.85em;
+      color: var(--peach);
+    }
+    .release-body p { margin: 0.4rem 0; }
+    .release-body strong { color: var(--text); }
+    .releases-loading {
+      text-align: center;
+      padding: 3rem;
+      color: var(--subtext0);
+      font-size: 0.9rem;
+    }
+    .releases-error {
+      text-align: center;
+      padding: 2rem;
+      color: var(--red);
+      font-size: 0.88rem;
+    }
+    @media (max-width: 600px) {
+      .release-card-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════
+       NAVIGATION
+  ════════════════════════════════════════════ -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-icon">
+          <img src="canlover_icon.png" alt="CanLover" />
+        </div>
+        CanLover
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#platforms">Platforms</a></li>
+        <li><a href="#licensing">Licensing</a></li>
+        <li><a href="#comparison">vs. Competitors</a></li>
+        <li><a href="#releases">Releases</a></li>
+        <li><a href="documentation.html">Docs</a></li>
+        <li><a href="https://github.com/denisswfc/CanLover-Releases/discussions" target="_blank" rel="noopener">Community</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="#licensing" class="btn btn-outline" style="padding:0.5rem 1rem;font-size:0.85rem;">Get License</a>
+        <a href="#cta" class="btn btn-primary" style="padding:0.5rem 1rem;font-size:0.85rem;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download
+        </a>
+      </div>
+
+      <button class="nav-toggle" aria-label="Menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ════════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+
+        <!-- Left: copy -->
+        <div>
+          <div class="hero-eyebrow">
+            <span class="badge badge--blue">v1.0</span>
+            <span class="badge badge--teal">SocketCAN Native</span>
+            <span class="badge badge--mauve">ImGui · C++20</span>
+          </div>
+
+          <h1 class="hero-title">
+            Professional<br>
+            <span>CAN Bus Analysis</span><br>
+            for engineers.
+          </h1>
+
+          <p class="hero-subtitle">
+            Inspect, decode, record, and replay CAN bus traffic with a modern,
+            lightweight, cross-platform tool. The free alternative to Vector CANalyzer
+            and PEAK PCAN-View — built from the ground up for automotive, EV,
+            and embedded systems engineers.
+          </p>
+
+          <div class="hero-ctas">
+            <a href="#cta" class="btn btn-primary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Download Free
+            </a>
+            <a href="#features" class="btn btn-secondary">Explore Features</a>
+          </div>
+
+          <div class="hero-compat">
+            <span class="hero-compat-label">Compatible with</span>
+            <span class="badge">SocketCAN</span>
+            <span class="badge">PEAK PCANBasic</span>
+            <span class="badge">Vector XL</span>
+            <span class="badge">Kvaser CANlib</span>
+          </div>
+        </div>
+
+        <!-- Right: app video -->
+        <div>
+          <div class="trace-window">
+            <video autoplay loop muted playsinline
+                   style="display:block;width:100%;height:auto;">
+              <source src="app_view.webm" type="video/webm">
+            </video>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       TRUST BAR
+  ════════════════════════════════════════════ -->
+  <div class="trust">
+    <div class="container">
+      <div class="trust-inner">
+        <span class="trust-label">Hardware adapters supported</span>
+        <div class="trust-divider"></div>
+        <div class="trust-items">
+          <div class="trust-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+            SocketCAN (Linux)
+          </div>
+          <div class="trust-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+            PEAK PCANBasic
+          </div>
+          <div class="trust-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+            Vector XL Driver
+          </div>
+          <div class="trust-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+            Kvaser CANlib
+          </div>
+          <div class="trust-divider"></div>
+          <div class="trust-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+            </svg>
+            DBC files
+          </div>
+          <div class="trust-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+            </svg>
+            SYM files
+          </div>
+          <div class="trust-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+            </svg>
+            ASC / TRC / BLF logs
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       FEATURES
+  ════════════════════════════════════════════ -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="features-header">
+        <div class="section-label">Capabilities</div>
+        <h2 class="section-title">Everything you need<br>to work with CAN bus</h2>
+        <p class="section-sub">From raw frame capture to J1939 diagnostics — all in one professional tool with a modular licensing model so you only pay for what you use.</p>
+      </div>
+
+      <div class="features-grid">
+
+        <!-- Bus Config -->
+        <div class="feature-card" style="--card-accent: linear-gradient(90deg, var(--blue), var(--sapphire));">
+          <div class="feature-icon" style="background:rgba(137,180,250,0.12);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#89b4fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M4 12H2M22 12h-2M4.93 19.07l1.41-1.41M19.07 19.07l-1.41-1.41M12 2v2M12 20v2"/>
+            </svg>
+          </div>
+          <div class="feature-title">Bus Configuration<span class="badge badge--green">Free</span></div>
+          <p class="feature-body">Add multiple CAN channels — physical hardware or virtual. Set bitrate per channel, attach DBC/SYM databases, and connect or disconnect with one click. Logs to ASC, TRC, and BLF simultaneously.</p>
+          <div class="feature-pills">
+            <span class="pill">Multi-channel</span>
+            <span class="pill">ASC · TRC · BLF</span>
+            <span class="pill">DBC / SYM</span>
+          </div>
+        </div>
+
+        <!-- Raw Trace -->
+        <div class="feature-card" style="--card-accent: linear-gradient(90deg, var(--teal), var(--green));">
+          <div class="feature-icon" style="background:rgba(148,226,213,0.12);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#94e2d5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+          </div>
+          <div class="feature-title">Raw Trace<span class="badge badge--green">Free</span></div>
+          <p class="feature-body">Live scrolling frame trace with a 2000-frame ring buffer. Switch between scrolling and unique-ID view. Real-time text filter, cycle-time tracking, TX-frame highlighting, and timestamp/DLC/hex columns.</p>
+          <div class="feature-pills">
+            <span class="pill">2000-frame buffer</span>
+            <span class="pill">Unique-ID view</span>
+            <span class="pill">Live filter</span>
+            <span class="pill">TX highlight</span>
+          </div>
+        </div>
+
+        <!-- Signal Table -->
+        <div class="feature-card" style="--card-accent: linear-gradient(90deg, var(--mauve), var(--pink));">
+          <div class="feature-icon" style="background:rgba(203,166,247,0.12);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#cba6f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/>
+            </svg>
+          </div>
+          <div class="feature-title">Signal Table <span class="tag tag--license">DbcDecoder</span><span class="badge badge--yellow">⚙ In progress</span></div>
+          <p class="feature-body">Live decoded signal values from your DBC or SYM database. Columns show message name, signal name, physical value with unit, type, and last-update time. Filterable and freezable.</p>
+          <div class="feature-pills">
+            <span class="pill">Physical values</span>
+            <span class="pill">Filterable</span>
+            <span class="pill">Freezable</span>
+          </div>
+        </div>
+
+        <!-- Node Logic — wide card -->
+        <div class="feature-card feature-card--wide" style="--card-accent: linear-gradient(90deg, var(--mauve), var(--lavender));">
+          <div class="feature-icon" style="background:rgba(203,166,247,0.12);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#cba6f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="18" r="2"/>
+              <line x1="7" y1="6" x2="17" y2="6"/><line x1="5" y1="8" x2="11" y2="16"/><line x1="19" y1="8" x2="13" y2="16"/>
+            </svg>
+          </div>
+          <div class="feature-title">Node Logic <span class="tag tag--license">NodeLogic</span> <span class="badge badge--yellow">⚙ Beta: In progress</span></div>
+          <p class="feature-body">A visual scripting canvas built directly into CanLover. Drop event nodes that fire on incoming CAN frames, signal conditions, or timers — then wire logic, data, and action nodes to build automated CAN behaviours without writing a line of code. Send frames, start periodic tasks, set variables, and log values, all driven by live bus traffic.</p>
+          <div class="feature-pills">
+            <span class="pill">Event-driven</span>
+            <span class="pill">CAN frame triggers</span>
+            <span class="pill">Signal conditions</span>
+            <span class="pill">Periodic timers</span>
+            <span class="pill">Automated TX</span>
+          </div>
+        </div>
+
+        <!-- Signal Plot — wide card -->
+        <div class="feature-card" style="--card-accent: linear-gradient(90deg, var(--peach), var(--yellow));">
+          <div class="feature-icon" style="background:rgba(250,179,135,0.12);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fab387" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/>
+            </svg>
+          </div>
+          <div class="feature-title">Signal Plot <span class="tag tag--license">SignalPlot</span></div>
+          <p class="feature-body">Multi-canvas time-series plotter with a configurable N×M grid. Drag signals from the signal tree onto any canvas. Stacked subplots or shared Y-axis per canvas, adaptive markers that appear when zoomed in, and cursor dots that follow the replay scrubbar position via binary search. Data is never discarded — time regressions appear as NaN gaps so all history stays intact.</p>
+          <div class="feature-pills">
+            <span class="pill">N×M grid layout</span>
+            <span class="pill">Drag &amp; drop signals</span>
+            <span class="pill">Shared Y-axis</span>
+            <span class="pill">Replay cursor</span>
+            <span class="pill">NaN gaps on seek</span>
+          </div>
+        </div>
+
+        <!-- CAN Transmit -->
+        <div class="feature-card" style="--card-accent: linear-gradient(90deg, var(--red), var(--maroon));">
+          <div class="feature-icon" style="background:rgba(243,139,168,0.12);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f38ba8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </div>
+          <div class="feature-title">CAN Transmit<span class="badge badge--green">Free</span></div>
+          <p class="feature-body">Compose and send raw frames manually or via DBC-decoded message definitions. Schedule periodic TX at any interval. Built-in signal waveform generators: Fixed, Ramp Up, Triangle, and Sine — continuously re-encodes and pushes to the TX scheduler.</p>
+          <div class="feature-pills">
+            <span class="pill">Periodic TX</span>
+            <span class="pill">Signal waveforms</span>
+            <span class="pill">DBC encoding</span>
+          </div>
+        </div>
+
+        <!-- Log Replay -->
+        <div class="feature-card" style="--card-accent: linear-gradient(90deg, var(--sapphire), var(--sky));">
+          <div class="feature-icon" style="background:rgba(116,199,236,0.12);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#74c7ec" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/>
+            </svg>
+          </div>
+          <div class="feature-title">Log-file Replay <span class="badge badge--green">Free</span></div>
+          <p class="feature-body">Open recorded log files and replay them at 0.1× to 16× speed. Pause, resume, loop. Drag the scrubbar to any position — Signal Plot cursors update in real time. On seek, Raw Trace rebuilds from scratch while Signal Plot retains history with visual NaN gaps.</p>
+          <div class="feature-pills">
+            <span class="pill">0.1× – 16× speed</span>
+            <span class="pill">Scrubbar</span>
+            <span class="pill">ASC · TRC · BLF</span>
+            <span class="pill">Loop mode</span>
+          </div>
+        </div>
+
+        <!-- J1939 -->
+        <div class="feature-card" style="--card-accent: linear-gradient(90deg, var(--yellow), var(--peach));">
+          <div class="feature-icon" style="background:rgba(249,226,175,0.12);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f9e2af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+            </svg>
+          </div>
+          <div class="feature-title">J1939 Network <span class="tag tag--license">J1939 Decoder</span><span class="badge badge--yellow">⚙ In progress</span></div>
+          <p class="feature-body">Automatically discovers J1939 nodes on the bus and displays their address, manufacturer name, function, and last-seen time. The indispensable view for truck, bus, and heavy equipment CAN networks.</p>
+          <div class="feature-pills">
+            <span class="pill">Node discovery</span>
+            <span class="pill">Manufacturer DB</span>
+            <span class="pill">Live timestamps</span>
+          </div>
+        </div>
+
+        <!-- DTC Panel -->
+        <div class="feature-card" style="--card-accent: linear-gradient(90deg, var(--red), var(--peach));">
+          <div class="feature-icon" style="background:rgba(243,139,168,0.12);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f38ba8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </div>
+          <div class="feature-title">DTC Panel <span class="tag tag--license">J1939 Decoder</span><span class="badge badge--yellow">⚙ In progress</span></div>
+          <p class="feature-body">J1939 Diagnostic Trouble Code reader. Shows PGN name, source address, SPN, FMI, occurrence count, human-readable descriptions, and timestamp for each active fault code.</p>
+          <div class="feature-pills">
+            <span class="pill">SPN / FMI</span>
+            <span class="pill">Occurrence count</span>
+            <span class="pill">J1939 DM1</span>
+          </div>
+        </div>
+
+        <!-- Freeze Frame -->
+        <div class="feature-card" style="--card-accent: linear-gradient(90deg, var(--lavender), var(--mauve));">
+          <div class="feature-icon" style="background:rgba(180,190,254,0.12);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b4befe" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+            </svg>
+          </div>
+          <div class="feature-title">Freeze Frame <span class="tag tag--license">J1939 Decoder</span><span class="badge badge--yellow">⚙ In progress</span></div>
+          <p class="feature-body">Captures J1939 freeze-frame snapshots at the exact moment a DTC fires. Displays the trigger SPN/FMI alongside all signal values recorded at the instant of the fault — invaluable for root-cause analysis.</p>
+          <div class="feature-pills">
+            <span class="pill">DTC-triggered</span>
+            <span class="pill">Signal snapshot</span>
+            <span class="pill">SPN / FMI context</span>
+          </div>
+        </div>
+
+        <!-- Database Browser -->
+        <div class="feature-card" style="--card-accent: linear-gradient(90deg, var(--teal), var(--sapphire));">
+          <div class="feature-icon" style="background:rgba(148,226,213,0.12);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#94e2d5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+            </svg>
+          </div>
+          <div class="feature-title">Database Browser<span class="tag tag--license">DbcDecoder</span></div>
+          <p class="feature-body">Browse all loaded DBC and SYM files through a hierarchical message and signal tree. Inspect attributes, value tables, and signal scaling without leaving the application.</p>
+          <div class="feature-pills">
+            <span class="pill">DBC browser</span>
+            <span class="pill">SYM browser</span>
+            <span class="pill">Signal tree</span>
+          </div>
+        </div>
+
+        <!-- Bus Statistics -->
+        <div class="feature-card" style="--card-accent: linear-gradient(90deg, var(--green), var(--teal));">
+          <div class="feature-icon" style="background:rgba(166,227,161,0.12);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a6e3a1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/>
+            </svg>
+          </div>
+          <div class="feature-title">Bus Statistics<span class="badge badge--green">Free</span></div>
+          <p class="feature-body">Per-channel live counters for bus load (current, average, peak), RX/TX frame and byte totals, and a full error-frame breakdown by kind — bit, form, stuff, CRC, ACK, bus-off, and more. Error counts shift from green to red as the risk of bus-off increases.</p>
+          <div class="feature-pills">
+            <span class="pill">Bus load %</span>
+            <span class="pill">TEC / REC</span>
+            <span class="pill">Error breakdown</span>
+            <span class="pill">Reset counters</span>
+          </div>
+        </div>
+
+      </div><!-- /features-grid -->
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       ARCHITECTURE
+  ════════════════════════════════════════════ -->
+  <section class="arch" id="architecture">
+    <div class="container">
+      <div class="arch-grid">
+
+        <!-- Left: code block -->
+        <div>
+          <div class="code-block">
+            <div class="code-block-header">
+              <div class="trace-dot trace-dot-red"></div>
+              <div class="trace-dot trace-dot-yellow"></div>
+              <div class="trace-dot trace-dot-green"></div>
+              <span class="code-block-title">decoder_chain.cpp</span>
+            </div>
+            <div class="code-block-body">
+              <pre style="white-space:pre;"><span class="cm">// First-match modular decoder chain</span>
+<span class="kw">std</span>::<span class="ty">optional</span>&lt;<span class="ty">DecodedFrame</span>&gt;
+<span class="fn">DecodeChain</span>::<span class="fn">decode</span>(<span class="kw">const</span> <span class="ty">CanFrame</span>&amp; frame) {
+  <span class="kw">for</span> (<span class="kw">auto</span>&amp; dec : decoders_) {
+    <span class="kw">if</span> (<span class="kw">auto</span> r = dec.<span class="fn">tryDecode</span>(frame))
+      <span class="kw">return</span> r;  <span class="cm">// first match wins</span>
+  }
+  <span class="kw">return</span> <span class="fn">PassthroughDecoder</span>{}.<span class="fn">decode</span>(frame);
+}
+
+<span class="cm">// Lock-free SPSC hot path</span>
+<span class="kw">void</span> <span class="fn">DriverThread</span>::<span class="fn">run</span>() {
+  <span class="kw">while</span> (running_) {
+    <span class="ty">CanFrame</span> f = hw_.<span class="fn">read</span>();    <span class="cm">// blocking</span>
+    spsc_.<span class="fn">push</span>(f);              <span class="cm">// zero mutex</span>
+  }
+}
+
+<span class="cm">// Replay drives same ICanBus interface</span>
+<span class="ty">ICanBus</span>* bus = <span class="nb">useReplay</span>
+  ? <span class="kw">new</span> <span class="ty">ReplayBus</span>(logFile)
+  : <span class="kw">new</span> <span class="ty">HardwareBus</span>(adapter);</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: arch points -->
+        <div>
+          <div class="section-label">Under the hood</div>
+          <h2 class="section-title" style="font-size:2rem;">Built for<br>real-time performance</h2>
+          <p class="section-sub" style="margin-bottom:2rem;">High-throughput CAN buses can push thousands of frames per second. CanLover is designed so the UI thread is never the bottleneck.</p>
+
+          <div class="arch-right">
+            <div class="arch-item">
+              <div class="arch-item-icon">⚡</div>
+              <div>
+                <div class="arch-item-title">Lock-free SPSC queues</div>
+                <p class="arch-item-body">Driver, decoder, and UI threads communicate through single-producer single-consumer queues — zero mutexes in the hot path, no priority inversion, no frame drops under load.</p>
+              </div>
+            </div>
+
+            <div class="arch-item">
+              <div class="arch-item-icon">🔗</div>
+              <div>
+                <div class="arch-item-title">Modular decoder chain</div>
+                <p class="arch-item-body">DBC → SYM → J1939 → Passthrough — each decoder tries in order, first match wins. New protocol decoders plug in without touching existing code paths.</p>
+              </div>
+            </div>
+
+            <div class="arch-item">
+              <div class="arch-item-icon">📝</div>
+              <div>
+                <div class="arch-item-title">Dedicated logger thread</div>
+                <p class="arch-item-body">ASC, TRC, and BLF are written concurrently on their own thread. Log overruns can never stall the decoding pipeline or lose frames in the trace.</p>
+              </div>
+            </div>
+
+            <div class="arch-item">
+              <div class="arch-item-icon">🔄</div>
+              <div>
+                <div class="arch-item-title">Replay as a first-class citizen</div>
+                <p class="arch-item-body">Replay drives the same <code style="font-family:var(--mono);font-size:0.8em;color:var(--teal);">ICanBus</code> interface as real hardware. The rest of the stack is completely unaware of whether data is live or replayed.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       PLATFORMS
+  ════════════════════════════════════════════ -->
+  <section class="platforms" id="platforms">
+    <div class="container">
+      <div class="platforms-header">
+        <div class="section-label">Platform support</div>
+        <h2 class="section-title">Works where you work</h2>
+        <p class="section-sub" style="margin:0 auto;">Native integrations for each platform — no shims, no compatibility layers where it counts.</p>
+      </div>
+
+      <div class="platforms-grid">
+
+        <div class="platform-card">
+          <span class="platform-icon">🐧</span>
+          <div class="platform-name">Linux</div>
+          <p class="platform-detail">SocketCAN via native kernel interface. Zero third-party SDK required — just bring up your <code style="font-family:var(--mono);font-size:0.85em;color:var(--teal);">can0</code> interface and connect.</p>
+          <div class="platform-status" style="margin-top:1rem;">
+            <span class="badge badge--green">✓ Available</span>
+            <span class="badge" style="margin-left:0.5rem;">AppImage</span>
+          </div>
+        </div>
+
+        <div class="platform-card">
+          <span class="platform-icon">🪟</span>
+          <div class="platform-name">Windows</div>
+          <p class="platform-detail">Runtime-selectable backend: PEAK PCANBasic, Vector XL Driver, or Kvaser CANlib. All three can coexist in one binary — no recompile needed to switch adapters.</p>
+          <div class="platform-status">
+            <span class="badge badge--green">✓ Available</span>
+            <span class="badge" style="margin-left:0.5rem;">Installer</span>
+          </div>
+        </div>
+
+        <div class="platform-card platform-wip">
+          <span class="platform-icon">🍎</span>
+          <div class="platform-name">macOS</div>
+          <p class="platform-detail">Adapter-based stub in progress. Community feedback on preferred hardware backends welcome.</p>
+          <div class="platform-status">
+            <span class="badge badge--yellow">⚙ In progress</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       LICENSING
+  ════════════════════════════════════════════ -->
+  <section class="licensing" id="licensing">
+    <div class="container">
+      <div class="licensing-grid">
+
+        <!-- Left: feature flags -->
+        <div>
+          <div class="section-label">Licensing model</div>
+          <h2 class="section-title" style="font-size:2rem;">Pay only for<br>what you use</h2>
+          <p class="section-sub" style="margin-bottom:1.5rem;">Hardware-fingerprint-based license keys. Each feature module is licensed independently — start with the free Raw Trace and add capabilities as your project grows.</p>
+
+          <div class="license-features">
+            <div class="license-feature-item">
+              <div>
+                <div class="license-feature-name">Raw Trace</div>
+                <div class="license-feature-desc">Always available, no license required</div>
+              </div>
+              <span class="badge badge--green">Free</span>
+            </div>
+            <div class="license-feature-item">
+              <div>
+                <div class="license-feature-name">Bus Statistics</div>
+                <div class="license-feature-desc">Always available, no license required</div>
+              </div>
+              <span class="badge badge--green">Free</span>
+            </div>
+            <div class="license-feature-item">
+              <div>
+                <div class="license-feature-name">CAN Transmit</div>
+                <div class="license-feature-desc">Periodic TX + waveform generators</div>
+              </div>
+              <span class="badge badge--green">Free</span>
+            </div>
+            <div class="license-feature-item">
+              <div>
+                <div class="license-feature-name">Log-file Replay</div>
+                <div class="license-feature-desc">ASC / TRC / BLF replay with scrubbar</div>
+              </div>
+              <span class="badge badge--green">Free</span>
+            </div>
+            <div class="license-feature-item">
+              <div>
+                <div class="license-feature-name">Read/Write/Monitor DBC/SYM</div>
+                <div class="license-feature-desc">Signal Table + Database Browser</div>
+              </div>
+              <span class="tag tag--license">DbcDecoder</span>
+            </div>
+            <div class="license-feature-item">
+              <div>
+                <div class="license-feature-name">Signal Plot</div>
+                <div class="license-feature-desc">Multi-canvas time-series plotting</div>
+              </div>
+              <span class="tag tag--license">SignalPlot</span>
+            </div>
+            <div class="license-feature-item">
+              <div>
+                <div class="license-feature-name">Node Logic</div>
+                <div class="license-feature-desc">Visual scripting canvas — automate CAN without code</div>
+              </div>
+              <span class="tag tag--license">NodeLogic</span>
+            </div>
+            <div class="license-feature-item">
+              <div>
+                <div class="license-feature-name">J1939 Decoder</div>
+                <div class="license-feature-desc">Network view + DTC Panel + Freeze Frame</div>
+              </div>
+              <span class="tag tag--license">J1939Decoder</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: how it works -->
+        <div>
+          <div style="margin-bottom:2rem;">
+            <div class="section-label">How it works</div>
+            <h3 style="font-size:1.3rem;font-weight:700;color:var(--text);margin-bottom:0.5rem;">Get up and running in minutes</h3>
+            <p style="font-size:0.875rem;color:var(--subtext0);line-height:1.65;">No dongle, no internet connection required. Your license key is tied to your machine hardware — copy it to any machine you own with the same fingerprint.</p>
+          </div>
+
+          <div class="license-flow">
+            <div class="license-step">
+              <div class="license-step-num">1</div>
+              <div class="license-step-content">
+                <div class="license-step-title">Download &amp; launch</div>
+                <p class="license-step-body">Run the AppImage (Linux) or installer (Windows). The app works immediately in basic mode with Raw Trace — no license needed to get started.</p>
+              </div>
+            </div>
+            <div class="license-step-connector"></div>
+            <div class="license-step">
+              <div class="license-step-num">2</div>
+              <div class="license-step-content">
+                <div class="license-step-title">Share your machine fingerprint</div>
+                <p class="license-step-body">Open the About panel. CanLover shows a fingerprint derived from your CPU ID and machine ID. Copy it and send it to us along with the feature modules you need.</p>
+              </div>
+            </div>
+            <div class="license-step-connector"></div>
+            <div class="license-step">
+              <div class="license-step-num">3</div>
+              <div class="license-step-content">
+                <div class="license-step-title">Receive your license key</div>
+                <p class="license-step-body">We generate a signed key that unlocks exactly the features you purchased. Paste it into the License field — features activate immediately, no restart required.</p>
+              </div>
+            </div>
+            <div class="license-step-connector"></div>
+            <div class="license-step">
+              <div class="license-step-num">4</div>
+              <div class="license-step-content">
+                <div class="license-step-title">Work offline, forever</div>
+                <p class="license-step-body">No call-home, no subscription. The expiry date (if any) is displayed in the About panel. Perpetual licenses available — ask us.</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:2rem;">
+            <a href="#cta" class="btn btn-primary">Get a License Key</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       COMPARISON
+  ════════════════════════════════════════════ -->
+  <section class="comparison" id="comparison">
+    <div class="container">
+      <div class="comparison-header">
+        <div class="section-label">Comparison</div>
+        <h2 class="section-title">How CanLover stacks up</h2>
+        <p class="section-sub" style="margin:0 auto;">A clear-eyed look at how CanLover compares to the established names in the industry.</p>
+      </div>
+
+      <div class="comparison-table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th style="width:28%;">Feature</th>
+              <th class="col-canlover">CanLover</th>
+              <th>Vector CANalyzer</th>
+              <th>PEAK PCAN Explorer</th>
+              <th>Kvaser CanKing</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="row-label">Linux (SocketCAN)</td>
+              <td class="col-canlover"><span class="cmp-yes">✓</span> Native kernel</td>
+              <td><span class="cmp-no">✕</span> Windows only</td>
+              <td><span class="cmp-no">✕</span> Windows only</td>
+              <td><span class="cmp-no">✕</span> Windows only</td>
+            </tr>
+            <tr>
+              <td class="row-label">Windows</td>
+              <td class="col-canlover"><span class="cmp-yes">✓</span> PEAK · Vector · Kvaser</td>
+              <td><span class="cmp-yes">✓</span> Vector only</td>
+              <td><span class="cmp-yes">✓</span> PEAK only</td>
+              <td><span class="cmp-yes">✓</span> Kvaser only</td>
+            </tr>
+            <tr>
+              <td class="row-label">DBC/SYM decoding</td>
+              <td class="col-canlover"><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span>DBC Only</td>
+              <td><span class="cmp-yes">✓</span>SYM and DBC via plugin</td>
+              <td><span class="cmp-no">✕</span></td>
+            </tr>
+            <tr>
+              <td class="row-label">Signal plot (time-series)</td>
+              <td class="col-canlover"><span class="cmp-yes">✓</span> Multi-canvas</td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span> via plugin</td>
+              <td><span class="cmp-no">✕</span></td>
+            </tr>
+            <tr>
+              <td class="row-label">Log replay (ASC/TRC/BLF)</td>
+              <td class="col-canlover"><span class="cmp-yes">✓</span> Scrubbar + speed ctrl</td>
+              <td><span class="cmp-yes">✓</span>ASC and BLF only</td>
+              <td><span class="cmp-yes">✓</span>TRC only</td>
+              <td><span class="cmp-no">✕</span></td>
+            </tr>
+            <tr>
+              <td class="row-label">J1939 + DTC + Freeze Frame</td>
+              <td class="col-canlover"><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-part">Partial</span> plugin</td>
+              <td><span class="cmp-no">✕</span></td>
+            </tr>
+            <tr>
+              <td class="row-label">Per-feature licensing</td>
+              <td class="col-canlover"><span class="cmp-yes">✓</span> Pay only what you need</td>
+              <td><span class="cmp-no">✕</span> Monolithic tiers</td>
+              <td><span class="cmp-yes">✓</span> Plugin model</td>
+              <td><span class="cmp-no">✕</span> Free only</td>
+            </tr>
+            <tr>
+              <td class="row-label">Distribution</td>
+              <td class="col-canlover">AppImage(Linux) · Installer(Windows)</td>
+              <td>Installer (Windows)</td>
+              <td>Installer (Windows)</td>
+              <td>Installer (Windows)</td>
+            </tr>
+            <tr>
+              <td class="row-label">GPU-accelerated UI</td>
+              <td class="col-canlover"><span class="cmp-yes">✓</span> ImGui + SDL3 + OpenGL</td>
+              <td><span class="cmp-no">✕</span> Legacy MFC</td>
+              <td><span class="cmp-no">✕</span></td>
+              <td><span class="cmp-no">✕</span></td>
+            </tr>
+            <tr>
+              <td class="row-label">Price</td>
+              <td class="col-canlover" style="color:var(--green);font-weight:600;">Free core + modular</td>
+              <td style="color:var(--red);">$$$$ Enterprise</td>
+              <td style="color:var(--yellow);">Free + paid plugins</td>
+              <td style="color:var(--green);">Free</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       CTA
+  ════════════════════════════════════════════ -->
+  <!-- ════════════════════════════════════════════
+       RELEASES
+  ════════════════════════════════════════════ -->
+  <section class="releases" id="releases">
+    <div class="container">
+      <div class="releases-header">
+        <div class="section-label" style="justify-content:center;display:flex;">Changelog</div>
+        <h2 class="section-title">Releases</h2>
+        <p class="section-sub" style="margin:0 auto;">Every release is published on GitHub (private). All Releases go through a thorough test process, more than 240 tests. Beta release can be accessed in the button bellow</p>
+      </div>
+      <div id="beta-notice" style="display:none;max-width:860px;margin:0 auto 1.25rem;padding:0.875rem 1.25rem;background:rgba(250,179,135,0.08);border:1px solid rgba(250,179,135,0.25);border-radius:var(--radius-lg);align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:0.625rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--peach)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span style="font-size:0.875rem;color:var(--subtext1);">A <strong style="color:var(--peach);">beta release</strong> is available with early access to new features.</span>
+        </div>
+        <a href="releases.html" class="btn btn-outline btn-sm" style="border-color:rgba(250,179,135,0.4);color:var(--peach);white-space:nowrap;">
+          View beta releases
+        </a>
+      </div>
+      <div class="releases-list" id="releases-list">
+        <div class="releases-loading">Loading releases…</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="cta">
+    <div class="container" style="position:relative;z-index:1;">
+      <div class="section-label" style="justify-content:center;display:flex;">Get started</div>
+      <h2 class="cta-title">Ready to take control<br>of your CAN bus?</h2>
+      <p class="cta-sub">Download CanLover for free. Raw Trace is always available — no license, no signup, no credit card. Unlock additional modules when you need them.</p>
+
+      <div class="cta-actions">
+        <a id="cta-linux" href="#releases" class="btn btn-primary" style="font-size:1rem;padding:0.875rem 2rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download for Linux (AppImage)
+        </a>
+        <a id="cta-windows" href="#releases" class="btn btn-secondary" style="font-size:1rem;padding:0.875rem 2rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <polyline points="8 17 12 21 16 17"/>
+            <line x1="12" y1="12" x2="12" y2="21"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+          </svg>
+          Download for Windows
+        </a>
+        <a href="mailto:denisswfc@gmail.com" class="btn btn-outline" style="font-size:1rem;padding:0.875rem 2rem;">
+          Contact for License
+        </a>
+      </div>
+
+      <div style="margin-top:2.5rem;display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.85rem;color:var(--subtext0);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Free Raw Trace, forever
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.85rem;color:var(--subtext0);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          No internet required after activation
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.85rem;color:var(--subtext0);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Perpetual licenses available
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.85rem;color:var(--subtext0);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Linux-native, no SDK dependencies
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="nav-logo" style="margin-bottom:0.75rem;display:inline-flex;">
+            <div class="nav-logo-icon">
+              <img src="canlover_icon.png" alt="CanLover" />
+            </div>
+            CanLover
+          </a>
+          <p>Professional CAN bus analysis tool for automotive engineers, EV developers, and embedded systems engineers. Linux-native, cross-platform, modern UI.</p>
+          <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+            <span class="badge">C++20</span>
+            <span class="badge">Dear ImGui</span>
+            <span class="badge">ImPlot</span>
+            <span class="badge">SDL3</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Features</div>
+          <ul class="footer-links">
+            <li><a href="#features">Raw Trace</a></li>
+            <li><a href="#features">Signal Table</a></li>
+            <li><a href="#features">Signal Plot</a></li>
+            <li><a href="#features">CAN Transmit</a></li>
+            <li><a href="#features">Log Replay</a></li>
+            <li><a href="#features">J1939 / DTC</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Platforms</div>
+          <ul class="footer-links">
+            <li><a href="#platforms">Linux (AppImage)</a></li>
+            <li><a href="#platforms">Windows</a></li>
+            <li><a href="#platforms">macOS (coming)</a></li>
+            <li><a href="#architecture">Architecture</a></li>
+            <li><a href="#releases">Releases</a></li>
+            <li><a href="documentation.html">Documentation</a></li>
+            <li><a href="https://github.com/denisswfc/CanLover-Releases/discussions" target="_blank" rel="noopener">Community Forum</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Licensing</div>
+          <ul class="footer-links">
+            <li><a href="#licensing">How it works</a></li>
+            <li><a href="#licensing">Feature modules</a></li>
+            <li><a href="#cta">Get a license</a></li>
+            <li><a href="#comparison">vs. Competitors</a></li>
+            <li><a href="mailto:denisswfc@gmail.com">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-left">
+          &copy; 2026 CanLover. All rights reserved. Proprietary software — all rights reserved.
+        </div>
+        <div class="footer-bottom-right">
+          <span class="badge badge--blue">Catppuccin Mocha</span>
+          <span class="badge badge--mauve">Catppuccin Latte</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ════════════════════════════════════════════
+       JS — minimal: nav toggle only
+  ════════════════════════════════════════════ -->
+  <script>
+    // Mobile nav toggle
+    const toggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (toggle && navLinks) {
+      toggle.addEventListener('click', () => {
+        const open = navLinks.style.display === 'flex';
+        navLinks.style.display = open ? '' : 'flex';
+        navLinks.style.flexDirection = 'column';
+        navLinks.style.position = 'absolute';
+        navLinks.style.top = '60px';
+        navLinks.style.left = '0';
+        navLinks.style.right = '0';
+        navLinks.style.background = 'var(--mantle)';
+        navLinks.style.padding = '1rem 1.5rem';
+        navLinks.style.borderBottom = '1px solid var(--surface0)';
+        navLinks.style.zIndex = '99';
+        if (open) navLinks.style.display = 'none';
+      });
+    }
+
+    // Smooth active-link highlight on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navAnchors = document.querySelectorAll('.nav-links a');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navAnchors.forEach(a => {
+            a.style.color = '';
+            if (a.getAttribute('href') === '#' + entry.target.id) {
+              a.style.color = 'var(--text)';
+            }
+          });
+        }
+      });
+    }, { threshold: 0.4 });
+
+    sections.forEach(s => observer.observe(s));
+
+    // ── GitHub Releases ────────────────────────────────────────────────────
+    (async () => {
+      const REPO    = 'denisswfc/CanLover-Releases';
+      const API     = `https://api.github.com/repos/${REPO}/releases`;
+      const list    = document.getElementById('releases-list');
+      const ctaLinux   = document.getElementById('cta-linux');
+      const ctaWindows = document.getElementById('cta-windows');
+
+      // Minimal markdown → HTML (headers, bold, inline code, lists, paragraphs)
+      function mdToHtml(md) {
+        if (!md) return '';
+        return md
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+          .replace(/^## (.+)$/gm,  '<h2>$1</h2>')
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/`([^`]+)`/g, '<code>$1</code>')
+          .replace(/^[-*] (.+)$/gm, '<li>$1</li>')
+          .replace(/(<li>[\s\S]*?<\/li>)/g, '<ul>$1</ul>')
+          // collapse consecutive </ul><ul>
+          .replace(/<\/ul>\s*<ul>/g, '')
+          .replace(/\r?\n\r?\n/g, '</p><p>')
+          .replace(/^(?!<[hup])(.+)$/gm, (m) => m.trim() ? m : '')
+          .replace(/(<p><\/p>)/g, '')
+          .trim();
+      }
+
+      function assetIcon(name) {
+        if (/\.AppImage$/i.test(name)) return `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`;
+        if (/\.(exe|msi)$/i.test(name)) return `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><polyline points="8 17 12 21 16 17"/><line x1="12" y1="12" x2="12" y2="21"/><line x1="3" y1="12" x2="21" y2="12"/></svg>`;
+        return `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`;
+      }
+
+      function assetLabel(name) {
+        if (/\.AppImage$/i.test(name)) return 'Linux AppImage';
+        if (/\.(exe|msi)$/i.test(name)) return 'Windows Installer';
+        return name;
+      }
+
+      function assetBtnClass(name) {
+        if (/\.AppImage$/i.test(name)) return 'btn btn-primary btn-sm';
+        if (/\.(exe|msi)$/i.test(name)) return 'btn btn-secondary btn-sm';
+        return 'btn btn-outline btn-sm';
+      }
+
+      function formatDate(iso) {
+        return new Date(iso).toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+      }
+
+      try {
+        const res = await fetch(API, { headers: { Accept: 'application/vnd.github+json' } });
+        if (!res.ok) throw new Error(`GitHub API ${res.status}`);
+        const allReleases = (await res.json()).sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
+
+        // Beta releases (tag contains _beta) are hidden on the main site — see releases.html for all releases
+        const isBeta = r => /_beta/i.test(r.tag_name);
+        const releases = allReleases.filter(r => !isBeta(r));
+
+        if (allReleases.some(isBeta)) {
+          const notice = document.getElementById('beta-notice');
+          if (notice) notice.style.display = 'flex';
+        }
+
+        if (!releases.length) {
+          list.innerHTML = '<div class="releases-loading">No stable releases yet.</div>';
+          return;
+        }
+
+        // Wire CTA buttons to latest stable release assets
+        const latest = releases[0];
+        const latestLinux   = latest.assets.find(a => /\.AppImage$/i.test(a.name));
+        const latestWindows = latest.assets.find(a => /\.(exe|msi)$/i.test(a.name));
+        if (ctaLinux   && latestLinux)   ctaLinux.href   = latestLinux.browser_download_url;
+        if (ctaWindows && latestWindows) ctaWindows.href = latestWindows.browser_download_url;
+
+        const r = releases[0];
+        const downloads = r.assets
+          .filter(a => /\.(AppImage|exe|msi)$/i.test(a.name))
+          .map(a => `<a href="${a.browser_download_url}" class="${assetBtnClass(a.name)}">${assetIcon(a.name)} ${assetLabel(a.name)}</a>`)
+          .join('');
+        const body = mdToHtml(r.body);
+
+        list.innerHTML = `
+          <div class="release-card release-card--latest">
+            <div class="release-card-header">
+              <div class="release-meta">
+                <span class="release-tag">${r.tag_name}</span>
+                <span class="badge badge--green">Latest</span>
+                <span class="release-date">${formatDate(r.published_at)}</span>
+              </div>
+              <div class="release-downloads">${downloads}</div>
+            </div>
+            ${body ? `<div class="release-body"><p>${body}</p></div>` : ''}
+          </div>
+          ${allReleases.length > 1 ? `
+          <div style="text-align:center;margin-top:1rem;">
+            <a href="releases.html" class="btn btn-outline btn-sm">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              View all releases
+            </a>
+          </div>` : ''}
+        `;
+
+      } catch (err) {
+        list.innerHTML = `<div class="releases-error">Could not load releases</div>`;
+      }
+    })();
+  </script>
+
+</body>
+</html>
