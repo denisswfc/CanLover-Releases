@@ -245,6 +245,8 @@ Features</a></li>
 <li><a href="#supported-platforms" id="toc-supported-platforms">Supported Platforms</a></li>
 <li><a href="#application-layout" id="toc-application-layout">Application Layout</a></li>
 <li><a href="#licensing" id="toc-licensing">Licensing</a></li>
+<li><a href="#diagnostic-report" id="toc-diagnostic-report">Diagnostic
+Report</a></li>
 </ul></li>
 <li><a href="#bus-configuration" id="toc-bus-configuration">Bus
 Configuration</a>
@@ -435,6 +437,14 @@ with live data.</p>
 license from the application data directory automatically on startup.
 See the <a href="#licensing">Licensing</a> section for details on which
 features require a license.</p>
+<h2 id="diagnostic-report">Diagnostic Report</h2>
+<p>If you encounter a problem and need to contact support, use
+<strong>Help → Send Diagnostic Report…</strong> to send a report
+directly to the developer. The report includes your application version,
+operating system, CPU model, hardware fingerprint, license status, and
+the last 100 lines of the application log. A preview of the report is
+shown before sending so you can review its contents. The report is
+transmitted over HTTPS and requires an active internet connection.</p>
 <h1 id="bus-configuration">Bus Configuration</h1>
 <p>The Bus Configuration window is the starting point for every session.
 Open it with the <strong>Configure…</strong> button in the main toolbar.
@@ -480,6 +490,27 @@ channel:</p>
 </table>
 <p>Only channels with the enable checkbox ticked will be opened when you
 connect.</p>
+<h3 id="one-interface-type-per-session">One Interface Type per
+Session</h3>
+<p>All channels start <strong>unticked</strong>. A single session drives
+one CAN interface type at a time, so you cannot mix hardware from
+different vendors — for example a Vector channel and a Kvaser channel —
+in the same connection.</p>
+<p>To keep the selection valid, CanLover enforces this
+automatically:</p>
+<ul>
+<li>Ticking a channel <strong>unticks any channel belonging to a
+different interface type</strong>, as well as any replay source.</li>
+<li>Channels of the <strong>same</strong> type stay selectable together
+— you can enable several channels on one adapter (or two channels of the
+same vendor’s virtual driver) in a single session.</li>
+</ul>
+<blockquote>
+<p>If a channel you had ticked clears itself when you tick another, the
+two belong to different interface types. Enable only channels of one
+type, then connect. To use a different type, tick one of its channels
+first — the previous selection clears — and connect again.</p>
+</blockquote>
 <h2 id="attaching-database-files">Attaching Database Files</h2>
 <p>Each channel can have one or more database files attached for signal
 decoding:</p>
@@ -513,6 +544,10 @@ needed.</li>
 <li>Use the playback controls at the bottom of the window:</li>
 </ol>
 <table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
 <thead>
 <tr>
 <th>Control</th>
@@ -536,10 +571,25 @@ needed.</li>
 <td>Loop</td>
 <td>Restart automatically at the end</td>
 </tr>
+<tr>
+<td><strong>Stop Replay</strong></td>
+<td>Exit replay mode and return Bus Configuration to its initial
+state</td>
+</tr>
 </tbody>
 </table>
 <p>Multiple files can be added and will be played in sequence as a
 single concatenated recording.</p>
+<h3 id="stopping-a-replay">Stopping a Replay</h3>
+<p>Clicking <strong>Stop Replay</strong> ends the replay session and
+restores the channel configuration to the state it was in before the
+replay started, allowing you to reconfigure channels, change bitrates,
+or connect to hardware immediately.</p>
+<p>If the replay produced a recording that has not been saved yet,
+CanLover will ask whether to save it before stopping. Choose
+<strong>Save</strong> to export the recording, <strong>Discard</strong>
+to drop it, or <strong>Cancel</strong> to return to the replay without
+stopping.</p>
 <h2 id="saving-a-recording">Saving a Recording</h2>
 <p>Before disconnecting or connecting to a different device, CanLover
 offers to save the current session recording. The save dialog supports
@@ -573,6 +623,11 @@ in-memory recording without saving.</p>
 <p>The Raw Trace window shows every CAN frame that passes through the
 session, in real time. It has two complementary view modes selectable
 via tabs at the top.</p>
+<p>When a session is opened, the active view mode is chosen
+automatically: if at least one channel has a DBC or SYM file attached,
+the window opens in <strong>Unique</strong> mode so decoded signal data
+is immediately visible; otherwise it opens in <strong>Trace</strong>
+mode. You can switch modes freely at any time during the session.</p>
 <h2 id="trace-mode">Trace Mode</h2>
 <p>Trace mode is a chronological log of all frames in the order they
 were received or transmitted, up to an internal buffer of approximately
@@ -1845,24 +1900,26 @@ the log; the graph stays stopped until all errors are resolved.</td>
 immediately.</td>
 </tr>
 <tr>
-<td><strong>Save</strong></td>
-<td>Persist the current graph to <code>node_graph.json</code> in the
-application configuration directory.</td>
+<td><strong>New</strong></td>
+<td>Clear the canvas and start a fresh unnamed graph. You are prompted
+to save any unsaved changes first.</td>
 </tr>
 <tr>
 <td><strong>Load</strong></td>
-<td>Load a previously saved graph from
-<code>node_graph.json</code>.</td>
+<td>Open a named graph from the graph library. A dropdown lists all
+previously saved graphs.</td>
 </tr>
 <tr>
-<td><strong>Clear</strong></td>
-<td>Delete all nodes and links from the canvas.</td>
+<td><strong>Save As…</strong></td>
+<td>Save the current graph under a name. Once named, subsequent
+autosaves use that name.</td>
 </tr>
 </tbody>
 </table>
-<p>While the graph is <strong>running</strong>, node and link editing is
-locked — the canvas is read-only until you press
-<strong>Stop</strong>.</p>
+<p>The current graph name is shown in the toolbar next to the separator
+when a named graph is loaded. While the graph is
+<strong>running</strong>, node and link editing is locked — the canvas
+is read-only until you press <strong>Stop</strong>.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="event-nodes">Event Nodes</h3>
 <p>Execution always starts at an event node. When the node’s condition
@@ -1885,9 +1942,9 @@ output.</p>
 <td>A CAN frame with the configured CAN ID arrives on the bus</td>
 </tr>
 <tr>
-<td><strong>OnSignalCondition</strong></td>
-<td>A decoded signal crosses a threshold (rising edge only — fires once
-per crossing)</td>
+<td><strong>OnDBCMessageReceived</strong></td>
+<td>A DBC-decoded message with the configured name arrives on the
+configured channel; exposes named signal values as Float outputs</td>
 </tr>
 <tr>
 <td><strong>OnSignalChanged</strong></td>
@@ -2012,6 +2069,13 @@ message name and signal name</td>
 <td>Extracts one byte at a given index from a raw CAN frame byte
 array</td>
 </tr>
+<tr>
+<td><strong>SequenceValue</strong></td>
+<td>Steps through a numeric range (Min → Max in configurable Step
+increments) each time it is evaluated; <strong>wrap</strong> mode cycles
+back to Min after reaching Max, <strong>bounce</strong> mode reverses
+direction at each edge</td>
+</tr>
 </tbody>
 </table>
 <h3 id="action-nodes">Action Nodes</h3>
@@ -2046,6 +2110,18 @@ and data bytes</td>
 resulting frame</td>
 </tr>
 <tr>
+<td><strong>SendDBCMessage</strong></td>
+<td>Encodes a complete DBC message by name, with one Float input pin per
+configured signal, and transmits it. Requires DBC support.</td>
+</tr>
+<tr>
+<td><strong>SendDBCMessagePeriodic</strong></td>
+<td>Same as Send DBC Message but driven by an internal timer
+(configurable interval in ms) — no exec pins required. Starts
+automatically when the graph runs and stops when the graph stops.
+Requires DBC support.</td>
+</tr>
+<tr>
 <td><strong>StartPeriodic</strong></td>
 <td>Registers a periodic TX task with the CAN scheduler at the
 configured period; outputs the task ID</td>
@@ -2066,9 +2142,9 @@ configured period; outputs the task ID</td>
 Type to filter by name, then click a node type to place it.</li>
 <li><strong>Drag</strong> from any output pin to a compatible input pin
 to create a link. Incompatible pin types show a red indicator.</li>
-<li><strong>Double-click</strong> a node header to open its
-configuration popover (CAN ID, timer interval, signal name, comparison
-operator, etc.).</li>
+<li><strong>Double-click</strong> a node header (or click the
+<strong>…</strong> button) to open its configuration popover (CAN ID,
+timer interval, signal name, comparison operator, etc.).</li>
 <li>Press <strong>Run</strong> in the toolbar. Any validation errors
 appear in the log and must be resolved before execution begins.</li>
 <li>Press <strong>Stop</strong> to halt at any time.</li>
@@ -2139,8 +2215,8 @@ errors:</p>
 </tr>
 <tr>
 <td>Library required but absent</td>
-<td>A SendFrame / StartPeriodic node exists but no CAN hardware session
-is open</td>
+<td>A SendFrame / SendDBCMessage / StartPeriodic node exists but no CAN
+hardware session is open</td>
 </tr>
 <tr>
 <td>Interval ≤ 0</td>
@@ -2154,6 +2230,11 @@ is open</td>
 <td>Empty signal name</td>
 <td>A signal-bound node has no message or signal name configured</td>
 </tr>
+<tr>
+<td>Empty message name</td>
+<td>A DBC node (OnDBCMessageReceived, SendDBCMessage,
+SendDBCMessagePeriodic) has no message name configured</td>
+</tr>
 </tbody>
 </table>
 <p>Warnings (non-blocking) are shown for disconnected event nodes and
@@ -2166,16 +2247,25 @@ graph only lowers frame rate, never drops CAN frames.</li>
 <li><strong>OnTimer</strong> fires at most once per rendered frame. At
 60 FPS the minimum effective interval is ≈ 16 ms.</li>
 <li><strong>CAN-driven events</strong> (OnMessageReceived,
-OnSignalCondition, OnSignalChanged) fire synchronously inside
+OnDBCMessageReceived, OnSignalChanged) fire synchronously inside
 <code>drain()</code> and therefore see fully decoded signal values for
 the current frame batch.</li>
+<li><strong>SendDBCMessagePeriodic</strong> is driven by
+<code>tick()</code> on each rendered frame; it fires independently of
+any event chain.</li>
 <li><strong>Data node memoisation</strong>: each data node evaluates at
 most once per event firing. Subsequent reads within the same chain
 return the cached result.</li>
 </ul>
 <h2 id="saving-and-loading-1">Saving and Loading</h2>
-<p>The graph is saved automatically when the Node Logic window is
-closed, and reloaded when it is next opened. To include the graph in a
+<p>Graphs are stored as JSON files in a <code>graphs/</code> folder
+inside the application configuration directory. The <strong>Save
+As…</strong> button saves under a user-chosen name;
+<strong>Load</strong> lists all named graphs in a dropdown.</p>
+<p>The most recently used graph is saved automatically to
+<code>node_graph.json</code> (the autosave slot) whenever the Node Logic
+window is closed or a different graph is loaded. It is restored
+automatically when the window is next opened. To include the graph in a
 workspace, use <strong>File → Save Workspace</strong>.</p>
 <h2 id="usage-tips-4">Usage Tips</h2>
 <ul>
@@ -2193,6 +2283,18 @@ TX — very short intervals can saturate the bus.</li>
 <li>The <strong>Counter</strong> node combined with
 <strong>Branch</strong> lets you trigger an action every N-th frame
 rather than every frame.</li>
+<li><strong>OnDBCMessageReceived</strong> lets you react to specific
+decoded messages without knowing the raw CAN ID — configure the message
+name and select which signal values to expose as Float outputs.</li>
+<li><strong>SequenceValue</strong> in <strong>wrap</strong> mode is
+useful for cycling through a test pattern (e.g., RPM sweep)
+automatically each time a timer fires; in <strong>bounce</strong> mode
+it reverses direction, producing a triangle-wave sequence without extra
+logic.</li>
+<li><strong>SendDBCMessagePeriodic</strong> is the easiest way to keep a
+DBC message on the bus at a fixed rate — drop it on the canvas,
+configure message name and interval, wire up signal value sources, and
+press Run. No event node or exec chain needed.</li>
 </ul>
 </body>
 </html>
