@@ -318,7 +318,11 @@
           return;
         }
 
-        const betaCount  = releases.filter(r => /_beta/i.test(r.tag_name)).length;
+        // A release is a beta if GitHub flags it as a pre-release (set by the
+        // release CI) or its tag mentions "beta" — covers both the older
+        // "_beta" tags and the newer "-beta" ones.
+        const isBeta = r => r.prerelease || /beta/i.test(r.tag_name);
+        const betaCount  = releases.filter(isBeta).length;
         const stableCount = releases.length - betaCount;
         if (countEl) {
           const parts = [];
@@ -328,10 +332,10 @@
         }
 
         // First stable release gets the "Latest" highlight; first overall entry may be a beta
-        const firstStableIdx = releases.findIndex(r => !/_beta/i.test(r.tag_name));
+        const firstStableIdx = releases.findIndex(r => !isBeta(r));
 
         list.innerHTML = releases.map((r, i) => {
-          const beta      = /_beta/i.test(r.tag_name);
+          const beta      = isBeta(r);
           const isLatest  = i === firstStableIdx;
           const cardClass = ['release-card', isLatest ? 'release-card--latest' : '', beta ? 'release-card--beta' : ''].filter(Boolean).join(' ');
           const downloads = r.assets

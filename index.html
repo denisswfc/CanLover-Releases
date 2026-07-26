@@ -2309,8 +2309,10 @@
         if (!res.ok) throw new Error(`GitHub API ${res.status}`);
         const allReleases = (await res.json()).sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
 
-        // Beta releases (tag contains _beta) are hidden on the main site — see releases.html for all releases
-        const isBeta = r => /_beta/i.test(r.tag_name);
+        // Beta releases are hidden on the main site — see releases.html for all
+        // releases. Detect via GitHub's pre-release flag (set by the release CI)
+        // or a "beta" tag, covering both "_beta" and "-beta" naming.
+        const isBeta = r => r.prerelease || /beta/i.test(r.tag_name);
         const releases = allReleases.filter(r => !isBeta(r));
 
         if (allReleases.some(isBeta)) {
