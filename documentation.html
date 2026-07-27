@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
+  <meta name="generator" content="pandoc 3.10" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>CanLover Documentation</title>
   <style>
-code{white-space: pre-wrap;}
+
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 
 ul.task-list[class]{list-style: none;}
@@ -21,210 +25,7 @@ vertical-align: middle;
 }
 .display.math{display: block; text-align: center; margin: 0.5rem auto;}
 </style>
-  <style type="text/css">
-:root {
---base: #1e1e2e;
---mantle: #181825;
---crust: #11111b;
---surface0: #313244;
---surface1: #45475a;
---surface2: #585b70;
---overlay1: #7f849c;
---text: #cdd6f4;
---subtext1: #bac2de;
---subtext0: #a6adc8;
---blue: #89b4fa;
---lavender: #b4befe;
---sapphire: #74c7ec;
---teal: #94e2d5;
---green: #a6e3a1;
---yellow: #f9e2af;
---peach: #fab387;
---red: #f38ba8;
---mauve: #cba6f7;
---sidebar-width: 270px;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 16px; scroll-behavior: smooth; }
-body {
-background: var(--base);
-color: var(--text);
-font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-line-height: 1.7;
-padding-left: var(--sidebar-width);
-}
-
-nav#TOC {
-position: fixed;
-top: 0; left: 0;
-width: var(--sidebar-width);
-height: 100vh;
-overflow-y: auto;
-background: var(--mantle);
-border-right: 1px solid var(--surface1);
-padding: 1.5rem 1rem 2rem;
-scrollbar-width: thin;
-scrollbar-color: var(--surface1) transparent;
-}
-nav#TOC::before {
-content: "Contents";
-display: block;
-color: var(--blue);
-font-size: 0.7rem;
-font-weight: 700;
-text-transform: uppercase;
-letter-spacing: 0.12em;
-padding-bottom: 0.6rem;
-margin-bottom: 0.6rem;
-border-bottom: 1px solid var(--surface1);
-}
-nav#TOC ul { list-style: none; padding-left: 0.75rem; }
-nav#TOC > ul { padding-left: 0; }
-nav#TOC li { margin: 0.15rem 0; }
-nav#TOC a {
-color: var(--subtext1);
-text-decoration: none;
-font-size: 0.82rem;
-display: block;
-padding: 0.22rem 0.5rem;
-border-radius: 4px;
-transition: color 0.12s, background 0.12s;
-}
-nav#TOC a:hover { color: var(--blue); background: var(--surface0); }
-
-body > *:not(nav#TOC) {
-max-width: 860px;
-padding: 2.5rem 3rem;
-}
-
-header#title-block-header {
-border-bottom: 2px solid var(--surface1);
-padding-bottom: 1.5rem;
-margin-bottom: 2rem;
-}
-header#title-block-header h1.title {
-font-size: 2.4rem;
-color: var(--blue);
-border: none;
-margin: 0;
-}
-
-h1 {
-color: var(--blue);
-font-size: 1.9rem;
-margin: 2.5rem 0 1rem;
-padding-bottom: 0.4rem;
-border-bottom: 2px solid var(--surface1);
-}
-h2 {
-color: var(--lavender);
-font-size: 1.35rem;
-margin: 1.8rem 0 0.6rem;
-}
-h3 {
-color: var(--sapphire);
-font-size: 1.1rem;
-margin: 1.4rem 0 0.4rem;
-}
-h4 {
-color: var(--teal);
-font-size: 1rem;
-margin: 1rem 0 0.3rem;
-}
-
-p { margin: 0.75rem 0; }
-ul, ol { margin: 0.75rem 0; padding-left: 1.6rem; }
-li { margin: 0.3rem 0; }
-strong { color: var(--peach); font-weight: 600; }
-em { color: var(--mauve); }
-a { color: var(--blue); text-decoration: none; }
-a:hover { text-decoration: underline; }
-hr {
-border: none;
-border-top: 1px solid var(--surface1);
-margin: 2rem 0;
-}
-
-code {
-background: var(--surface0);
-color: var(--green);
-padding: 0.12em 0.4em;
-border-radius: 4px;
-font-size: 0.88em;
-font-family: 'Consolas', 'Cascadia Code', monospace;
-}
-pre {
-background: var(--mantle);
-border: 1px solid var(--surface1);
-border-radius: 6px;
-padding: 1rem 1.2rem;
-overflow-x: auto;
-margin: 1rem 0;
-}
-pre code { background: none; padding: 0; color: var(--text); font-size: 0.88rem; }
-
-table {
-border-collapse: collapse;
-width: 100%;
-margin: 1rem 0;
-font-size: 0.9rem;
-}
-th {
-background: var(--surface0);
-color: var(--blue);
-padding: 0.55rem 0.9rem;
-text-align: left;
-border-bottom: 2px solid var(--surface1);
-font-weight: 600;
-}
-td {
-padding: 0.5rem 0.9rem;
-border-bottom: 1px solid var(--surface0);
-}
-tr:hover td { background: var(--surface0); }
-
-blockquote {
-border-left: 3px solid var(--blue);
-margin: 1rem 0;
-padding: 0.6rem 1rem;
-background: var(--mantle);
-color: var(--subtext1);
-border-radius: 0 4px 4px 0;
-}
-blockquote p { margin: 0.3rem 0; }
-
-.back-btn {
-display: inline-flex;
-align-items: center;
-gap: 0.4rem;
-position: fixed;
-bottom: 1.25rem;
-left: calc(var(--sidebar-width) / 2 - 70px);
-background: var(--surface0);
-color: var(--subtext1);
-font-size: 0.78rem;
-font-weight: 500;
-padding: 0.45rem 0.85rem;
-border-radius: 6px;
-border: 1px solid var(--surface1);
-text-decoration: none;
-transition: color 0.12s, background 0.12s, border-color 0.12s;
-z-index: 100;
-}
-.back-btn:hover {
-color: var(--blue);
-background: var(--mantle);
-border-color: var(--blue);
-text-decoration: none;
-}
-
-@media (max-width: 768px) {
-:root { --sidebar-width: 0px; }
-nav#TOC { display: none; }
-body > *:not(nav#TOC) { padding: 1.5rem 1.2rem; }
-.back-btn { display: none; }
-}
-</style>
+  <style type="text/css">:root {--base: #1e1e2e;--mantle: #181825;--crust: #11111b;--surface0: #313244;--surface1: #45475a;--surface2: #585b70;--overlay1: #7f849c;--text: #cdd6f4;--subtext1: #bac2de;--subtext0: #a6adc8;--blue: #89b4fa;--lavender: #b4befe;--sapphire: #74c7ec;--teal: #94e2d5;--green: #a6e3a1;--yellow: #f9e2af;--peach: #fab387;--red: #f38ba8;--mauve: #cba6f7;--sidebar-width: 270px;}*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }html { font-size: 16px; scroll-behavior: smooth; }body {background: var(--base);color: var(--text);font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;line-height: 1.7;padding-left: var(--sidebar-width);}nav#TOC {position: fixed;top: 0; left: 0;width: var(--sidebar-width);height: 100vh;overflow-y: auto;background: var(--mantle);border-right: 1px solid var(--surface1);padding: 1.5rem 1rem 2rem;scrollbar-width: thin;scrollbar-color: var(--surface1) transparent;}nav#TOC::before {content: "Contents";display: block;color: var(--blue);font-size: 0.7rem;font-weight: 700;text-transform: uppercase;letter-spacing: 0.12em;padding-bottom: 0.6rem;margin-bottom: 0.6rem;border-bottom: 1px solid var(--surface1);}nav#TOC ul { list-style: none; padding-left: 0.75rem; }nav#TOC > ul { padding-left: 0; }nav#TOC li { margin: 0.15rem 0; }nav#TOC a {color: var(--subtext1);text-decoration: none;font-size: 0.82rem;display: block;padding: 0.22rem 0.5rem;border-radius: 4px;transition: color 0.12s, background 0.12s;}nav#TOC a:hover { color: var(--blue); background: var(--surface0); }body > *:not(nav#TOC) {max-width: 860px;padding: 2.5rem 3rem;}header#title-block-header {border-bottom: 2px solid var(--surface1);padding-bottom: 1.5rem;margin-bottom: 2rem;}header#title-block-header h1.title {font-size: 2.4rem;color: var(--blue);border: none;margin: 0;}h1 {color: var(--blue);font-size: 1.9rem;margin: 2.5rem 0 1rem;padding-bottom: 0.4rem;border-bottom: 2px solid var(--surface1);}h2 {color: var(--lavender);font-size: 1.35rem;margin: 1.8rem 0 0.6rem;}h3 {color: var(--sapphire);font-size: 1.1rem;margin: 1.4rem 0 0.4rem;}h4 {color: var(--teal);font-size: 1rem;margin: 1rem 0 0.3rem;}p { margin: 0.75rem 0; }ul, ol { margin: 0.75rem 0; padding-left: 1.6rem; }li { margin: 0.3rem 0; }strong { color: var(--peach); font-weight: 600; }em { color: var(--mauve); }a { color: var(--blue); text-decoration: none; }a:hover { text-decoration: underline; }hr {border: none;border-top: 1px solid var(--surface1);margin: 2rem 0;}code {background: var(--surface0);color: var(--green);padding: 0.12em 0.4em;border-radius: 4px;font-size: 0.88em;font-family: 'Consolas', 'Cascadia Code', monospace;}pre {background: var(--mantle);border: 1px solid var(--surface1);border-radius: 6px;padding: 1rem 1.2rem;overflow-x: auto;margin: 1rem 0;}pre code { background: none; padding: 0; color: var(--text); font-size: 0.88rem; }table {border-collapse: collapse;width: 100%;margin: 1rem 0;font-size: 0.9rem;}th {background: var(--surface0);color: var(--blue);padding: 0.55rem 0.9rem;text-align: left;border-bottom: 2px solid var(--surface1);font-weight: 600;}td {padding: 0.5rem 0.9rem;border-bottom: 1px solid var(--surface0);}tr:hover td { background: var(--surface0); }blockquote {border-left: 3px solid var(--blue);margin: 1rem 0;padding: 0.6rem 1rem;background: var(--mantle);color: var(--subtext1);border-radius: 0 4px 4px 0;}blockquote p { margin: 0.3rem 0; }.back-btn {display: inline-flex;align-items: center;gap: 0.4rem;position: fixed;bottom: 1.25rem;left: calc(var(--sidebar-width) / 2 - 70px);background: var(--surface0);color: var(--subtext1);font-size: 0.78rem;font-weight: 500;padding: 0.45rem 0.85rem;border-radius: 6px;border: 1px solid var(--surface1);text-decoration: none;transition: color 0.12s, background 0.12s, border-color 0.12s;z-index: 100;}.back-btn:hover {color: var(--blue);background: var(--mantle);border-color: var(--blue);text-decoration: none;}@media (max-width: 768px) {:root { --sidebar-width: 0px; }nav#TOC { display: none; }body > *:not(nav#TOC) { padding: 1.5rem 1.2rem; }.back-btn { display: none; }}</style>
 </head>
 <body>
 <a href="index.html" class="back-btn">
@@ -242,6 +43,7 @@ body > *:not(nav#TOC) { padding: 1.5rem 1.2rem; }
 <ul>
 <li><a href="#main-features" id="toc-main-features">Main
 Features</a></li>
+<li><a href="#new-in-this-release-beta" id="toc-new-in-this-release-beta">New in this release (Beta)</a></li>
 <li><a href="#supported-platforms" id="toc-supported-platforms">Supported Platforms</a></li>
 <li><a href="#application-layout" id="toc-application-layout">Application Layout</a></li>
 <li><a href="#licensing" id="toc-licensing">Licensing</a></li>
@@ -293,14 +95,18 @@ Navigation</a></li>
 </ul></li>
 <li><a href="#freeze-frame" id="toc-freeze-frame">Freeze Frame</a>
 <ul>
+<li><a href="#how-it-works" id="toc-how-it-works">How it works</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
 <li><a href="#layout-3" id="toc-layout-3">Layout</a></li>
-<li><a href="#controls-3" id="toc-controls-3">Controls</a></li>
+<li><a href="#configuration" id="toc-configuration">Configuration</a></li>
+<li><a href="#saving-a-curated-snapshot-.cff" id="toc-saving-a-curated-snapshot-.cff">Saving a curated snapshot
+(.cff)</a></li>
 <li><a href="#usage-tips-2" id="toc-usage-tips-2">Usage Tips</a></li>
 </ul></li>
 <li><a href="#j1939-network" id="toc-j1939-network">J1939 Network</a>
 <ul>
-<li><a href="#layout-4" id="toc-layout-4">Layout</a></li>
-<li><a href="#behaviour" id="toc-behaviour">Behaviour</a></li>
+<li><a href="#tabs" id="toc-tabs">Tabs</a></li>
+<li><a href="#multi-packet-transport" id="toc-multi-packet-transport">Multi-packet transport</a></li>
 <li><a href="#usage-tips-3" id="toc-usage-tips-3">Usage Tips</a></li>
 </ul></li>
 <li><a href="#database-browser" id="toc-database-browser">Database
@@ -326,7 +132,7 @@ Entries</a></li>
 </ul></li>
 <li><a href="#can-statistics" id="toc-can-statistics">CAN Statistics</a>
 <ul>
-<li><a href="#layout-5" id="toc-layout-5">Layout</a></li>
+<li><a href="#layout-4" id="toc-layout-4">Layout</a></li>
 <li><a href="#bus-status" id="toc-bus-status">Bus Status</a></li>
 <li><a href="#bus-load" id="toc-bus-load">Bus Load</a></li>
 <li><a href="#traffic" id="toc-traffic">Traffic</a></li>
@@ -380,11 +186,11 @@ traffic, decoded signals, diagnostic trouble codes, network topology,
 and bus health.</p>
 <h2 id="main-features">Main Features</h2>
 <ul>
-<li><strong>Multi-channel live capture</strong> from PEAK, Vector, and
-Kvaser hardware adapters</li>
+<li><strong>Multi-channel live capture</strong> from PEAK, Vector,
+Kvaser, and IXXAT hardware adapters</li>
 <li><strong>Signal decoding</strong> via DBC and SYM database files</li>
 <li><strong>J1939 support</strong> — PGN/SPN decoding, address claims,
-DM1/DM2 DTCs, and DM25 freeze frames</li>
+DM1/DM2 DTCs, and multi-packet transport</li>
 <li><strong>Replay</strong> of ASC, TRC, and BLF log files with timeline
 scrubbing and variable speed</li>
 <li><strong>Signal plotting</strong> with configurable multi-panel
@@ -400,6 +206,31 @@ and traffic breakdown per channel</li>
 DBC and SYM files</li>
 <li><strong>Session recording</strong> exportable to ASC, TRC, or
 BLF</li>
+</ul>
+<h2 id="new-in-this-release-beta">New in this release (Beta)</h2>
+<blockquote>
+<p><strong>🧪 Beta</strong> — the features below are new in the 1.1.0
+beta. They are functional but still settling; details may change based
+on feedback.</p>
+</blockquote>
+<ul>
+<li><strong>Multiple backends in one session</strong> — combine several
+interfaces (e.g. PEAK <em>and</em> Vector) at once; every window shows
+all channels with a global index. See <a href="#bus-configuration">Bus
+Configuration</a>.</li>
+<li><strong>Unified J1939 diagnostics</strong> — one
+<strong>J1939</strong> window for the ECU inventory, active DTCs (DM1)
+and previously-active DTCs (DM2), with full lamp indicators, BAM
+<strong>and</strong> RTS/CTS multi-packet reassembly, and the ability to
+request DM2 or clear faults from the bus. See <a href="#j1939-network">J1939 Network</a>.</li>
+<li><strong>Software Freeze Frame</strong> — CanLover captures the
+signals around a fault itself (before <em>and</em> after), even for ECUs
+that never send a DM25, live or from a log, and can save a curated
+snapshot to a shareable <code>.cff</code> file. See <a href="#freeze-frame">Freeze Frame</a>.</li>
+<li><strong>Node Logic additions</strong> — send multi-frame J1939
+messages, a <strong>Delay</strong> node for timing, and graphs that keep
+running when the window is closed. See <a href="#node-logic">Node
+Logic</a>.</li>
 </ul>
 <h2 id="supported-platforms">Supported Platforms</h2>
 <table>
@@ -450,6 +281,14 @@ transmitted over HTTPS and requires an active internet connection.</p>
 Open it with the <strong>Configure…</strong> button in the main toolbar.
 It covers device discovery, channel setup, database attachment, and
 session management.</p>
+<blockquote>
+<p><strong>🧪 Beta (new in 1.1.0)</strong> — you can now activate
+channels from <strong>several backends at once</strong> (e.g. a PEAK
+<em>and</em> a Vector device) in a single session. Each channel is
+assigned a session-global index shown throughout the app, so a merged
+multi-backend trace, plot, and log stay readable, and channel 0 on one
+device never collides with channel 0 on another.</p>
+</blockquote>
 <h2 id="discovering-devices">Discovering Devices</h2>
 <p>Click <strong>Refresh Devices</strong> to enumerate all connected CAN
 adapters. Detected hardware is displayed in a collapsible list grouped
@@ -1043,64 +882,67 @@ which faults appeared.</li>
 ECU together.</li>
 </ul>
 <h1 id="freeze-frame">Freeze Frame</h1>
-<p>The Freeze Frame window captures and displays J1939 DM25 (Expanded
-Freeze Frame) data — a snapshot of signal values recorded by an ECU at
-the moment a fault was triggered.</p>
+<blockquote>
+<p><strong>🧪 Beta feature</strong> — new in the 1.1.0 beta. Behaviour
+and the saved file format may still change based on feedback.</p>
+</blockquote>
+<p>The Freeze Frame window captures what the bus looked like
+<strong>around the moment a fault appeared</strong> — a window of
+traffic from before and after the trigger, like a scope trigger. Instead
+of relying on an ECU to provide a DM25/DM4 freeze frame (many never do),
+CanLover records the raw frames itself and decodes them on view, so
+<em>every</em> signal on the bus at fault time is available, not just a
+pre-selected set.</p>
 <blockquote>
 <p><strong>License required:</strong> Freeze Frame requires the
-<em>Freeze Frame</em> feature in the license. <strong>Protocol
-requirement:</strong> Requires J1939 and a loaded database with DM25
-support.</p>
+<em>Freeze Frame</em> feature in the license.</p>
 </blockquote>
+<h2 id="how-it-works">How it works</h2>
+<p>When <strong>armed</strong>, CanLover keeps a rolling in-memory
+buffer of the last few seconds of traffic across <strong>all
+channels</strong>. When a new active DTC (DM1) appears for an ECU, it
+freezes that buffer and keeps recording for a short while after, then
+seals the result into a <strong>snapshot</strong>: the raw frames in the
+window <code>[t0 − pre, t0 + post]</code> plus the trigger metadata
+(channel, source address, SPN, FMI, PGN).</p>
+<p>Snapshots are decoded <strong>on view</strong> through an isolated
+decoder, so opening one never disturbs live decoding.</p>
+<h2 id="sources">Sources</h2>
+<ul>
+<li><strong>Live</strong> — tick <strong>Arm capture</strong>; a
+snapshot is captured automatically when a new DTC fires. Capture keeps
+running even if the window is closed.</li>
+<li><strong>Recording / replay</strong> — open a log and press
+<strong>Scan log for faults</strong>. Every DM1 fault in the log is
+listed instantly; selecting one extracts and decodes the window around
+it from the log.</li>
+</ul>
 <h2 id="layout-3">Layout</h2>
 <p>The window is split into two panels.</p>
-<h3 id="left-panel-snapshot-list">Left Panel — Snapshot List</h3>
-<p>Lists all freeze frame snapshots received during the session. Each
-entry shows:</p>
+<h3 id="left-panel-snapshot-fault-list">Left panel — snapshot / fault
+list</h3>
+<p>One row per captured snapshot (live) or detected fault (log scan),
+showing the trigger time, channel, ECU source address, and the SPN/FMI
+that fired. Click a row to open it.</p>
+<h3 id="right-panel-detail">Right panel — detail</h3>
+<p>For the selected snapshot:</p>
 <ul>
-<li><strong>Timestamp</strong> — session time when the snapshot was
-received</li>
-<li><strong>Source</strong> — J1939 source address of the reporting node
-(hex)</li>
-<li><strong>Trigger SPN</strong> — the Suspect Parameter Number that
-caused the fault</li>
+<li>A <strong>value-at-t0 table</strong> — each decoded signal’s value
+at the trigger instant.</li>
+<li>A <strong>timeline plot</strong> — every signal over the capture
+window, with time shown relative to the trigger (t = 0), and a marker at
+the fault instant.</li>
+<li>A <strong>signal filter</strong> to narrow both views.</li>
 </ul>
-<p>Click a snapshot to select it and view its contents in the right
-panel.</p>
-<h3 id="right-panel-snapshot-detail">Right Panel — Snapshot Detail</h3>
-<p>Displays the contents of the selected snapshot:</p>
+<p>Decoded signals require an appropriate DBC / SYM / J1939 database for
+the PGNs in the window; frames with no matching database are still
+captured but won’t produce named signals.</p>
+<h2 id="configuration">Configuration</h2>
 <table>
 <colgroup>
 <col style="width: 50%" />
 <col style="width: 50%" />
 </colgroup>
-<thead>
-<tr>
-<th>Field</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Source address</td>
-<td>J1939 address of the node that reported the freeze frame</td>
-</tr>
-<tr>
-<td>Trigger SPN</td>
-<td>SPN that was active when the snapshot was taken</td>
-</tr>
-<tr>
-<td>Trigger FMI</td>
-<td>Failure Mode Identifier associated with the trigger SPN</td>
-</tr>
-</tbody>
-</table>
-<p>Below the header, a table lists all captured signals with their
-physical values at the time of the fault. These values are immutable —
-they represent the state of the system at the moment the fault was
-detected, not the current live values.</p>
-<h2 id="controls-3">Controls</h2>
-<table>
 <thead>
 <tr>
 <th>Control</th>
@@ -1109,32 +951,70 @@ detected, not the current live values.</p>
 </thead>
 <tbody>
 <tr>
+<td><strong>Arm capture</strong></td>
+<td>Start/stop live capture. Pre-trigger history cannot be reconstructed
+after the fact, so arm before the fault.</td>
+</tr>
+<tr>
+<td><strong>pre (s)</strong></td>
+<td>Seconds of history kept <em>before</em> the trigger.</td>
+</tr>
+<tr>
+<td><strong>post (s)</strong></td>
+<td>Seconds captured <em>after</em> the trigger.</td>
+</tr>
+<tr>
+<td><strong>max</strong></td>
+<td>Maximum number of snapshots kept (oldest dropped past this).</td>
+</tr>
+<tr>
+<td><strong>Scan log for faults</strong></td>
+<td>(Replay only) list every DM1 fault in the open log.</td>
+</tr>
+<tr>
 <td><strong>Clear</strong></td>
-<td>Remove all snapshots from the list</td>
+<td>Remove all snapshots.</td>
 </tr>
 </tbody>
 </table>
+<h2 id="saving-a-curated-snapshot-.cff">Saving a curated snapshot
+(.cff)</h2>
+<p>While viewing a snapshot you can distil it into a
+<strong><code>.cff</code></strong> (CanLover Freeze Frame) file: pick
+the signals that matter, add a label and notes, and save. The file is
+<strong>self-contained</strong> — it stores the decoded time-series of
+the chosen signals plus the metadata and notes, so it reopens and is
+meaningful on its own (shareable, no original log needed). Use
+<strong>Open .cff…</strong> to view one.</p>
 <h2 id="usage-tips-2">Usage Tips</h2>
 <ul>
-<li>Use freeze frames in conjunction with the <strong>DTC Panel</strong>
-to correlate a fault code with the operating conditions present when the
-fault occurred.</li>
-<li>Multiple snapshots from different ECUs or different fault events
-accumulate over the session, allowing comparison between events.</li>
+<li>Pair freeze frames with the <strong>J1939</strong> window’s DTC tabs
+to correlate a fault code with the operating conditions around it.</li>
+<li>For recordings you don’t need to arm anything — just scan the log;
+the log itself is the durable record.</li>
+<li>Keep <code>pre</code>/<code>post</code> modest on a busy bus; the
+rolling buffer holds every channel.</li>
 </ul>
 <h1 id="j1939-network">J1939 Network</h1>
-<p>The J1939 Network window shows the nodes discovered on the J1939
-network by listening for Address Claim (PGN 0xEE00) messages. It
-provides a quick topology overview of which ECUs are present on the
-bus.</p>
+<p>The <strong>J1939</strong> window is the hub for J1939 diagnostics.
+It discovers the ECUs on the network from Address Claim (PGN 0xEE00)
+messages and, on top of that, shows their diagnostic trouble codes.</p>
 <blockquote>
 <p><strong>Protocol requirement:</strong> Requires a J1939-enabled
 channel. Nodes only appear after they have transmitted an Address Claim
 message.</p>
 </blockquote>
-<h2 id="layout-4">Layout</h2>
-<p>The header shows the total count of discovered nodes.</p>
-<p>Each row in the table represents one network node:</p>
+<blockquote>
+<p><strong>🧪 Beta</strong> — the tabbed layout, the full NAME /
+activity / conflict details, the lamp indicators, and the request/clear
+actions below are new in the 1.1.0 beta.</p>
+</blockquote>
+<p>Everything is keyed by <strong>(channel, source address)</strong>, so
+the same address on two different buses is correctly treated as two
+distinct nodes.</p>
+<h2 id="tabs">Tabs</h2>
+<h3 id="active-ecus">Active ECUs</h3>
+<p>The network inventory — one row per node, decoded from its NAME:</p>
 <table>
 <colgroup>
 <col style="width: 50%" />
@@ -1149,40 +1029,72 @@ message.</p>
 <tbody>
 <tr>
 <td>Address</td>
-<td>J1939 source address of the node (hexadecimal, 0x00–0xFE)</td>
+<td>J1939 source address (hex, 0x00–0xFE)</td>
 </tr>
 <tr>
 <td>Manufacturer</td>
-<td>11-bit manufacturer code from the NAME field (shown as 4-digit
-hex)</td>
+<td>11-bit manufacturer code</td>
 </tr>
 <tr>
 <td>Function</td>
-<td>8-bit function code from the NAME field (shown as 2-digit hex)</td>
+<td>Function, plus ECU / function instance</td>
+</tr>
+<tr>
+<td>Vehicle system</td>
+<td>Vehicle system and instance, industry group</td>
+</tr>
+<tr>
+<td>Activity</td>
+<td>Last-seen / active indication, with address-conflict flagging when
+two NAMEs claim one address</td>
 </tr>
 </tbody>
 </table>
-<h2 id="behaviour">Behaviour</h2>
+<h3 id="active-dtcs-dm1">Active DTCs (DM1)</h3>
+<p>Active faults, <strong>grouped per ECU</strong>. Each ECU group shows
+its <strong>lamp status</strong> — malfunction, red-stop, amber-warning
+and protect — drawn as icons with off / on / slow-flash / fast-flash
+states, followed by its active DTC list (SPN, FMI, occurrence count,
+description).</p>
+<p>DM1 is broadcast (~1 Hz), so this tab listens passively and
+reconciles against the latest DM1 per ECU: a code that stops being
+reported is treated as healed. For ECUs that only broadcast while a
+fault is present, an optional <strong>inactivity timeout</strong> ages
+out codes that stop arriving, and faults that came and went during a
+recording are kept as a session history rather than dropped.</p>
 <ul>
-<li>Nodes are added the first time an Address Claim is received from a
-new source address.</li>
-<li>If the same source address transmits a new Address Claim (e.g.,
-after an address conflict resolution), the existing row is updated with
-the new NAME information.</li>
-<li>Nodes accumulate over the session; there is no automatic
-expiry.</li>
+<li><strong>Clear</strong> (per ECU) sends a DM11 (clear active DTCs) to
+that address; a top-level <strong>Clear all</strong> broadcasts it.</li>
 </ul>
+<h3 id="historic-dtcs-dm2">Historic DTCs (DM2)</h3>
+<p>Previously-active faults. DM2 is request/response rather than
+broadcast, so:</p>
+<ul>
+<li><strong>Download / Request</strong> sends a PGN request (PGN 59904)
+for DM2, per-ECU or broadcast, and populates the list from the
+responses.</li>
+<li><strong>Clear</strong> (per ECU) sends a DM3 (clear
+previously-active DTCs); a top-level <strong>Clear all</strong>
+broadcasts it.</li>
+</ul>
+<blockquote>
+<p>The clear/request actions require the transmit-capable license
+feature and a live (non-replay) session.</p>
+</blockquote>
+<h2 id="multi-packet-transport">Multi-packet transport</h2>
+<p>Diagnostic messages larger than 8 bytes are reassembled automatically
+— both broadcast <strong>BAM</strong> and point-to-point <strong>RTS/CTS
+(CMDT)</strong> transfers — with per-session timeouts. Transport
+sessions are isolated per (channel, source address) so concurrent
+transfers on different buses never mix.</p>
 <h2 id="usage-tips-3">Usage Tips</h2>
 <ul>
-<li>Use this window to confirm all expected ECUs are present and have
-successfully claimed their addresses before starting a diagnostic
-session.</li>
-<li>Cross-reference the <strong>Source</strong> column in the
-<strong>DTC Panel</strong> with the addresses shown here to identify
-which physical node is reporting a fault.</li>
-<li>The J1939 standard assigns well-known function codes (e.g., 0x00 =
-Engine, 0x04 = Transmission). Consult the J1939-81 specification or your
-system documentation for the full list.</li>
+<li>Confirm all expected ECUs are present in <strong>Active
+ECUs</strong> before diagnosing.</li>
+<li>Use the DTC tabs together with the <strong>Freeze Frame</strong>
+window to correlate a fault with the signal conditions around it.</li>
+<li>The J1939 standard assigns well-known function codes (e.g. 0x00 =
+Engine, 0x03 = Transmission). Consult J1939-81 for the full list.</li>
 </ul>
 <h1 id="database-browser">Database Browser</h1>
 <p>The Database Browser lets you inspect the contents of loaded DBC and
@@ -1453,7 +1365,7 @@ any database encoding.</p>
 <p>The CAN Statistics window shows real-time bus health metrics for
 every active channel — bus load, traffic counters, error rates, and
 hardware status.</p>
-<h2 id="layout-5">Layout</h2>
+<h2 id="layout-4">Layout</h2>
 <p>The window contains one collapsible section per active channel. The
 section header shows the channel index, device identifier, channel type
 (Physical, Virtual, or Replay), and configured bitrate.</p>
@@ -1872,6 +1784,13 @@ create scripts that react to live CAN traffic — no code required.</p>
 <p><strong>License required:</strong> Node Logic requires the <em>Node
 Logic</em> feature in the license.</p>
 </blockquote>
+<blockquote>
+<p><strong>🧪 Beta (new in 1.1.0)</strong> — a <strong>Delay</strong>
+node for spacing out actions (see the flow nodes below), <strong>Send
+Frame</strong> now forces the extended flag automatically for 29-bit IDs
+so J1939 messages transmit correctly, and a running graph keeps
+executing even when the Node Logic window is closed.</p>
+</blockquote>
 <h2 id="opening-the-editor">Opening the Editor</h2>
 <p>Open the Node Logic window from <strong>Windows → Node Logic</strong>
 in the main menu bar. The window contains a toolbar at the top, a log
@@ -2006,6 +1925,12 @@ exec output when finished</td>
 <td><strong>Counter</strong></td>
 <td>Increments an internal counter on Execute; Reset sets it to zero;
 outputs the current count</td>
+</tr>
+<tr>
+<td><strong>Delay</strong> <em>(Beta)</em></td>
+<td>Waits a configurable number of milliseconds, then continues the
+chain — non-blocking, so timers and the UI keep running. Handy for
+spacing multi-frame sends such as a J1939 BAM sequence</td>
 </tr>
 </tbody>
 </table>
