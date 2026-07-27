@@ -2266,20 +2266,49 @@
       // Minimal markdown → HTML (headers, bold, inline code, lists, paragraphs)
       function mdToHtml(md) {
         if (!md) return '';
-        return md
-          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-          .replace(/^### (.+)$/gm, '<h3>$1</h3>')
-          .replace(/^## (.+)$/gm,  '<h2>$1</h2>')
+        const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        const inline = s => esc(s)
+          .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
           .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-          .replace(/`([^`]+)`/g, '<code>$1</code>')
-          .replace(/^[-*] (.+)$/gm, '<li>$1</li>')
-          .replace(/(<li>[\s\S]*?<\/li>)/g, '<ul>$1</ul>')
-          // collapse consecutive </ul><ul>
-          .replace(/<\/ul>\s*<ul>/g, '')
-          .replace(/\r?\n\r?\n/g, '</p><p>')
-          .replace(/^(?!<[hup])(.+)$/gm, (m) => m.trim() ? m : '')
-          .replace(/(<p><\/p>)/g, '')
-          .trim();
+          .replace(/`([^`]+)`/g, '<code>$1</code>');
+        const lines = md.replace(/\r\n/g, '\n').split('\n');
+        let out = '';
+        const stack = [];        // indent widths of currently open <ul> levels
+        let para = false;
+        const closePara  = () => { if (para) { out += '</p>'; para = false; } };
+        const closeLists = () => { while (stack.length) { out += '</li></ul>'; stack.pop(); } };
+        for (const raw of lines) {
+          const li = raw.match(/^(\s*)[-*]\s+(.*)$/);
+          const h2 = raw.match(/^##\s+(.*)$/);
+          const h3 = raw.match(/^###\s+(.*)$/);
+          if (li) {
+            closePara();
+            const indent = li[1].replace(/\t/g, '  ').length;
+            if (!stack.length || indent > stack[stack.length - 1]) {
+              out += '<ul>';                 // deeper level nests inside the open <li>
+              stack.push(indent);
+            } else {
+              while (stack.length && indent < stack[stack.length - 1]) {
+                out += '</li></ul>';
+                stack.pop();
+              }
+              out += '</li>';                // sibling — close the previous item
+            }
+            out += '<li>' + inline(li[2]);
+          } else if (h3) {
+            closePara(); closeLists(); out += '<h3>' + inline(h3[1]) + '</h3>';
+          } else if (h2) {
+            closePara(); closeLists(); out += '<h2>' + inline(h2[1]) + '</h2>';
+          } else if (raw.trim() === '') {
+            closePara(); closeLists();
+          } else {
+            closeLists();
+            if (!para) { out += '<p>'; para = true; } else { out += ' '; }
+            out += inline(raw.trim());
+          }
+        }
+        closePara(); closeLists();
+        return out;
       }
 
       function assetIcon(name) {
