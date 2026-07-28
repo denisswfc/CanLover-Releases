@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CanLover — Community</title>
+  <meta name="description" content="CanLover community — vote in polls on what to build next and join the discussion." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://canlover.ddns.net/community.html" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!--
+    ┌────────────────────────────────────────────────────────────────────────┐
+    │ SETUP — two placeholders to fill in once, then this page is done:        │
+    │                                                                          │
+    │ 1. POLL (Google Forms): create a form, click "Send" → the < > (embed)    │
+    │    tab, copy the iframe's src URL, and paste it into GOOGLE_FORM_EMBED_URL│
+    │    below (the src="…viewform?embedded=true" value).                      │
+    │                                                                          │
+    │ 2. DISCUSSION (Cusdis cloud): sign up at https://cusdis.com, add a        │
+    │    website, copy its "App ID", and paste it into CUSDIS_APP_ID below.     │
+    └────────────────────────────────────────────────────────────────────────┘
+  -->
+
+  <style>
+    :root {
+      --crust:    #11111b;
+      --mantle:   #181825;
+      --base:     #1e1e2e;
+      --surface0: #313244;
+      --surface1: #45475a;
+      --surface2: #585b70;
+      --overlay0: #6c7086;
+      --subtext0: #a6adc8;
+      --subtext1: #bac2de;
+      --text:     #cdd6f4;
+      --lavender: #b4befe;
+      --blue:     #89b4fa;
+      --green:    #a6e3a1;
+      --peach:    #fab387;
+      --red:      #f38ba8;
+      --mauve:    #cba6f7;
+      --accent:   var(--blue);
+      --radius:   10px;
+      --radius-lg:16px;
+      --mono:     'JetBrains Mono', 'Fira Code', monospace;
+      --sans:     'Inter', system-ui, -apple-system, sans-serif;
+      --transition: 0.2s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--base);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--blue); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--lavender); }
+    img { display: block; max-width: 100%; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.5rem; border-radius: var(--radius);
+      font-family: var(--sans); font-size: 0.95rem; font-weight: 600;
+      cursor: pointer; border: none;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+      white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--blue); color: var(--mantle); box-shadow: 0 4px 16px rgba(137,180,250,0.3); }
+    .btn-primary:hover { background: var(--lavender); color: var(--mantle); }
+    .btn-outline { background: transparent; color: var(--blue); border: 1.5px solid var(--blue); }
+    .btn-outline:hover { background: rgba(137,180,250,0.1); color: var(--lavender); border-color: var(--lavender); }
+
+    /* Nav */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(24, 24, 37, 0.85);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--surface0);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .nav-logo { display: flex; align-items: center; gap: 0.6rem; font-size: 1.15rem; font-weight: 700; color: var(--text); }
+    .nav-logo-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
+    .nav-logo-icon img { width: 32px; height: 32px; object-fit: contain; }
+    .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
+
+    /* Page header */
+    .page-header { padding: 4rem 0 2.5rem; border-bottom: 1px solid var(--surface0); background: var(--mantle); }
+    .page-header-label { font-size: 0.75rem; font-family: var(--mono); font-weight: 600; color: var(--blue); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.6rem; }
+    .page-header h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 800; color: var(--text); line-height: 1.15; }
+    .page-header p { margin-top: 0.6rem; font-size: 1rem; color: var(--subtext1); }
+
+    /* Community */
+    .community-page { padding: 3rem 0 6rem; }
+    .community-wrap { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 2.5rem; }
+    .community-section h2 {
+      font-size: 1.35rem; font-weight: 700; color: var(--text);
+      display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.4rem;
+    }
+    .community-section > p { color: var(--subtext1); font-size: 0.92rem; margin-bottom: 1.1rem; }
+    .community-card {
+      background: var(--mantle); border: 1px solid var(--surface0);
+      border-radius: var(--radius-lg); padding: 1.25rem; overflow: hidden;
+    }
+    .form-embed iframe {
+      width: 100%; min-height: 640px; border: 0; border-radius: var(--radius);
+      background: var(--base);
+    }
+    .embed-fallback {
+      display: block; text-align: center; padding: 2.5rem 1.5rem;
+      color: var(--subtext0); font-size: 0.9rem; line-height: 1.7;
+    }
+    .embed-fallback code { background: var(--surface0); border-radius: 4px; padding: 0.1em 0.4em; font-family: var(--mono); font-size: 0.85em; color: var(--peach); }
+
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: var(--mantle); }
+    ::-webkit-scrollbar-thumb { background: var(--surface1); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--surface2); }
+
+    @media (max-width: 600px) { .page-header-inner { flex-direction: column; align-items: flex-start; } }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon"><img src="canlover_icon.png" alt="CanLover" /></div>
+        CanLover
+      </a>
+      <div class="nav-actions">
+        <a href="index.html" class="btn btn-outline" style="padding:0.5rem 1rem;font-size:0.85rem;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Back to home
+        </a>
+        <a href="index.html#cta" class="btn btn-primary" style="padding:0.5rem 1rem;font-size:0.85rem;">Download</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-header">
+    <div class="container">
+      <div class="page-header-label">Community</div>
+      <h1>Community</h1>
+      <p>Vote on what to build next, and share ideas, questions and feedback.</p>
+    </div>
+  </div>
+
+  <div class="community-page">
+    <div class="container">
+      <div class="community-wrap">
+
+        <!-- ── Polls (Google Forms) ─────────────────────────────────────────── -->
+        <section class="community-section">
+          <h2>📊 Polls</h2>
+          <p>Have a say in what gets built next — no account needed.</p>
+          <div class="community-card form-embed">
+            <!-- Replace GOOGLE_FORM_EMBED_URL with your form's embed src
+                 (Google Forms → Send → &lt;/&gt; → copy the iframe src). -->
+            <iframe src="GOOGLE_FORM_EMBED_URL" title="CanLover poll" loading="lazy">
+              Loading the poll…
+            </iframe>
+          </div>
+        </section>
+
+        <!-- ── Discussion (Cusdis) ──────────────────────────────────────────── -->
+        <section class="community-section">
+          <h2>💬 Discussion</h2>
+          <p>Ask questions, report ideas, or just say hi. Post with just a name — no login required.</p>
+          <div class="community-card">
+            <div id="cusdis_thread"
+              data-host="https://cusdis.com"
+              data-app-id="CUSDIS_APP_ID"
+              data-page-id="community"
+              data-page-url="https://canlover.ddns.net/community.html"
+              data-page-title="CanLover Community"
+              data-theme="dark">
+              <div class="embed-fallback">
+                Discussion loads here once Cusdis is configured
+                (set <code>data-app-id</code>).
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+</body>
+</html>
