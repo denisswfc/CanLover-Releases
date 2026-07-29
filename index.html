@@ -1316,6 +1316,45 @@
     @media (max-width: 600px) {
       .release-card-header { flex-direction: column; align-items: flex-start; }
     }
+    /* ── License request modal ─────────────────────────────────────────── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.62);
+      display: none; align-items: center; justify-content: center;
+      padding: 1.5rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-card {
+      background: var(--mantle);
+      border: 1px solid var(--surface0);
+      border-radius: 16px;
+      max-width: 520px; width: 100%;
+      max-height: 90vh; overflow-y: auto;
+      padding: 1.75rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .modal-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.25rem; }
+    .modal-head h3 { font-size: 1.35rem; font-weight: 700; color: var(--text); }
+    .modal-head p { font-size: 0.85rem; color: var(--subtext0); margin-top: 0.3rem; }
+    .modal-close { background: none; border: none; color: var(--subtext0); font-size: 1.6rem; line-height: 1; cursor: pointer; padding: 0 0.25rem; }
+    .modal-close:hover { color: var(--text); }
+    .lf-field { margin-bottom: 1.1rem; }
+    .lf-label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--subtext1); margin-bottom: 0.45rem; }
+    .lf-input, .lf-textarea {
+      width: 100%; background: var(--base); border: 1px solid var(--surface1);
+      border-radius: 8px; padding: 0.6rem 0.75rem; color: var(--text);
+      font-family: inherit; font-size: 0.9rem;
+    }
+    .lf-input:focus, .lf-textarea:focus { outline: none; border-color: var(--blue); }
+    .lf-textarea { resize: vertical; min-height: 88px; }
+    .lf-features { display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem 1rem; }
+    .lf-check { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--subtext1); cursor: pointer; }
+    .lf-check input { accent-color: var(--blue); }
+    .lf-actions { margin-top: 1.35rem; display: flex; gap: 1rem; align-items: center; }
+    .lf-status { font-size: 0.85rem; }
+    .lf-status.ok { color: var(--green); }
+    .lf-status.err { color: var(--red); }
+    @media (max-width: 480px) { .lf-features { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -1337,7 +1376,7 @@
         <li><a href="#architecture">Architecture</a></li>
         <li><a href="#platforms">Platforms</a></li>
         <li><a href="#licensing">Licensing</a></li>
-        <li><a href="#comparison">vs. Competitors</a></li>
+        <li><a href="#comparison">Comparison</a></li>
         <li><a href="#releases">Releases</a></li>
         <li><a href="documentation.html">Docs</a></li>
         <li><a href="community.html">Community</a></li>
@@ -1955,7 +1994,7 @@
           </div>
 
           <div style="margin-top:2rem;">
-            <a href="#cta" class="btn btn-primary">Get a License Key</a>
+            <a href="#" data-license-modal class="btn btn-primary">Get a License Key</a>
           </div>
         </div>
 
@@ -2114,7 +2153,7 @@
           </svg>
           Download for Windows
         </a>
-        <a href="mailto:denisswfc@gmail.com" class="btn btn-outline" style="font-size:1rem;padding:0.875rem 2rem;">
+        <a href="#" data-license-modal class="btn btn-outline" style="font-size:1rem;padding:0.875rem 2rem;">
           Contact for License
         </a>
       </div>
@@ -2194,7 +2233,7 @@
             <li><a href="#licensing">Feature modules</a></li>
             <li><a href="#cta">Get a license</a></li>
             <li><a href="#comparison">vs. Competitors</a></li>
-            <li><a href="mailto:denisswfc@gmail.com">Contact</a></li>
+            <li><a href="#" data-license-modal>Contact</a></li>
           </ul>
         </div>
       </div>
@@ -2392,6 +2431,104 @@
       } catch (err) {
         list.innerHTML = `<div class="releases-error">Could not load releases</div>`;
       }
+    })();
+  </script>
+
+  <!-- ── License request modal ─────────────────────────────────────────────
+       SETUP: get a free access key at https://web3forms.com (enter the email
+       that should receive requests), then replace WEB3FORMS_ACCESS_KEY below.
+       Submissions are emailed to that address — same delivery as the old
+       mailto link, but with a proper form and no email client required.        -->
+  <div class="modal-overlay" id="license-modal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="lf-title">
+      <div class="modal-head">
+        <div>
+          <h3 id="lf-title">Request a License</h3>
+          <p>Tell us what you need — we'll reply by email.</p>
+        </div>
+        <button class="modal-close" type="button" data-close aria-label="Close">&times;</button>
+      </div>
+      <form id="license-form">
+        <input type="hidden" name="access_key" value="c712e80c-f260-4289-8668-5dcb4084f3ec">
+        <input type="hidden" name="subject" value="CanLover — license request">
+        <input type="hidden" name="from_name" value="CanLover website">
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+
+        <div class="lf-field">
+          <label class="lf-label" for="lf-email">Your email</label>
+          <input class="lf-input" type="email" id="lf-email" name="email" required placeholder="you@example.com">
+        </div>
+
+        <div class="lf-field">
+          <label class="lf-label" for="lf-fingerprint">App fingerprint</label>
+          <input class="lf-input" type="text" id="lf-fingerprint" name="fingerprint" required
+                 placeholder="In the app: Help → About → Copy">
+        </div>
+
+        <div class="lf-field">
+          <label class="lf-label">Features you're interested in</label>
+          <div class="lf-features">
+            <label class="lf-check"><input type="checkbox" name="features" value="DBC Decoder"> DBC Decoder</label>
+            <label class="lf-check"><input type="checkbox" name="features" value="Signal Plot"> Signal Plot</label>
+            <label class="lf-check"><input type="checkbox" name="features" value="J1939 Decoder"> J1939 Decoder</label>
+            <label class="lf-check"><input type="checkbox" name="features" value="Node Logic"> Node Logic</label>
+          </div>
+        </div>
+
+        <div class="lf-field">
+          <label class="lf-label" for="lf-message">Anything else?</label>
+          <textarea class="lf-textarea" id="lf-message" name="message" placeholder="Use case, number of seats, questions…"></textarea>
+        </div>
+
+        <div class="lf-actions">
+          <button type="submit" class="btn btn-primary" id="lf-submit">Send request</button>
+          <span class="lf-status" id="lf-status"></span>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const modal  = document.getElementById('license-modal');
+      const form   = document.getElementById('license-form');
+      const status = document.getElementById('lf-status');
+      const submit = document.getElementById('lf-submit');
+
+      const open  = () => { modal.classList.add('open');  modal.setAttribute('aria-hidden', 'false'); };
+      const close = () => { modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true'); };
+
+      document.querySelectorAll('[data-license-modal]').forEach(el =>
+        el.addEventListener('click', e => { e.preventDefault(); open(); }));
+      modal.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', close));
+      modal.addEventListener('click', e => { if (e.target === modal) close(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        status.textContent = 'Sending…'; status.className = 'lf-status';
+        submit.disabled = true;
+        try {
+          const data  = new FormData(form);
+          const feats = data.getAll('features');
+          data.set('features', feats.length ? feats.join(', ') : '(none selected)');
+          const res  = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data });
+          const json = await res.json();
+          if (json.success) {
+            status.textContent = "Thanks! We'll be in touch."; status.className = 'lf-status ok';
+            form.reset();
+            setTimeout(close, 2200);
+          } else {
+            status.textContent = json.message || 'Something went wrong — please email denisswfc@gmail.com.';
+            status.className = 'lf-status err';
+          }
+        } catch (err) {
+          status.textContent = 'Network error — please email denisswfc@gmail.com.';
+          status.className = 'lf-status err';
+        } finally {
+          submit.disabled = false;
+        }
+      });
     })();
   </script>
 
