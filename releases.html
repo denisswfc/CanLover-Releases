@@ -10,7 +10,15 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <!-- Load Google Fonts without blocking render: preload as style, then swap to
+       stylesheet on load. display=swap already lets text paint in a fallback font. -->
+  <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
+        onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" />
+  </noscript>
 
   <style>
     :root {
@@ -222,7 +230,7 @@
     <div class="container nav-inner">
       <a href="/" class="nav-logo">
         <div class="nav-logo-icon">
-          <img src="canlover_icon.png" alt="CanLover" />
+          <img src="canlover_icon.png" alt="CanLover" width="32" height="32" />
         </div>
         CanLover
       </a>
