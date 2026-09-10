@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://canlover.ddns.net/sitemap.xml
+Sitemap: https://canlover.mcv-sw.com/sitemap.xml
