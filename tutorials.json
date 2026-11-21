@@ -2,8 +2,58 @@
   "videos": [
     {
       "title": "Getting started with CanLover",
-      "url": "https://www.youtube.com/watch?v=WsVlopf39sM",
-      "since": "1.0.0"
+      "url": "https://youtu.be/uiNHOd7xm0U",
+      "since": "1.2.1"
+    },
+    {
+      "title": "Bus Configuration: connect devices, databases and replays",
+      "url": "https://youtu.be/0qx_IyddIuk",
+      "since": "1.2.1"
+    },
+    {
+      "title": "Raw Trace: watching frames on the bus",
+      "url": "https://youtu.be/pwXO5O1Sde0",
+      "since": "1.2.1"
+    },
+    {
+      "title": "Signal Table: live signal values and derived signals",
+      "url": "https://youtu.be/k3pVbcdebRU",
+      "since": "1.2.1"
+    },
+    {
+      "title": "Signal Plot: plotting signals over time",
+      "url": "https://youtu.be/cFM3uoW-R0M",
+      "since": "1.2.1"
+    },
+    {
+      "title": "CAN Transmit: sending frames and DBC messages",
+      "url": "https://youtu.be/a2u0Xn7ItOI",
+      "since": "1.2.1"
+    },
+    {
+      "title": "Bus Statistics: bus load, traffic and error counters",
+      "url": "https://youtu.be/mfLX27emJok",
+      "since": "1.2.1"
+    },
+    {
+      "title": "Database Browser: viewing and editing DBC and SYM files",
+      "url": "https://youtu.be/ETQJcdhUaV8",
+      "since": "1.2.1"
+    },
+    {
+      "title": "J1939: ECUs, active and historic DTCs",
+      "url": "https://youtu.be/8eEr-33S5N0",
+      "since": "1.2.1"
+    },
+    {
+      "title": "Freeze Frame: capturing and saving fault snapshots",
+      "url": "https://youtu.be/IRYqdk6_cMc",
+      "since": "1.2.1"
+    },
+    {
+      "title": "Node Logic: automating the bus with node graphs",
+      "url": "https://youtu.be/cPHYn2AFOdw",
+      "since": "1.2.1"
     }
   ]
 }
